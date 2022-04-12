@@ -25,6 +25,9 @@ import {
   EDIT_CHECKLIST_ITEM,
   COMPLETE_CHECKLIST_ITEM,
   DELETE_CHECKLIST_ITEM,
+  ADD_CARD_ATTACHMENT,
+  GET_SINGLE_ATTACHMENT,
+  DELETE_CARD_ATTACHMENT,
 } from './types';
 
 const config = {
@@ -233,7 +236,7 @@ export const addCard = (formData) => async (dispatch) => {
 export const editCard = (cardId, formData) => async (dispatch) => {
   try {
     const res = await axios.patch(`/api/cards/edit/${cardId}`, formData, config);
-
+    console.log(res.data)
     dispatch({
       type: EDIT_CARD,
       payload: res.data,
@@ -384,11 +387,11 @@ export const addCardMember = (formData) => async (dispatch) => {
 };
 
 // Add checklist item
-export const addChecklistItem = (cardId, formData) => async (dispatch) => {
+export const addChecklistItem = (boardId, cardId, formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post(`/api/checklists/${cardId}`, body, config);
+    const res = await axios.post(`/api/checklists/${boardId}/${cardId}`, body, config);
 
     dispatch({
       type: ADD_CHECKLIST_ITEM,
@@ -424,9 +427,9 @@ export const editChecklistItem = (cardId, itemId, formData) => async (dispatch) 
 // Complete/Uncomplete checklist item
 export const completeChecklistItem = (formData) => async (dispatch) => {
   try {
-    const { cardId, complete, itemId } = formData;
+    const {boardId, cardId, complete, itemId } = formData;
 
-    const res = await axios.patch(`/api/checklists/${cardId}/${complete}/${itemId}`);
+    const res = await axios.patch(`/api/checklists/${boardId}/${cardId}/${complete}/${itemId}`);
 
     dispatch({
       type: COMPLETE_CHECKLIST_ITEM,
@@ -441,12 +444,65 @@ export const completeChecklistItem = (formData) => async (dispatch) => {
 };
 
 // Delete checklist item
-export const deleteChecklistItem = (cardId, itemId) => async (dispatch) => {
+export const deleteChecklistItem = (boardId, cardId, itemId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/checklists/${cardId}/${itemId}`);
+    const res = await axios.delete(`/api/checklists/${boardId}/${cardId}/${itemId}`);
 
     dispatch({
       type: DELETE_CHECKLIST_ITEM,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add Attachment
+export const addAttachment = (cardId, formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post(`/api/attachment/${cardId}`, body, config);
+
+    dispatch({
+      type: ADD_CARD_ATTACHMENT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get Single Attachment
+export const getSingleAttachment = (cardId, itemId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/attachment/${cardId}/${itemId}`);
+
+    dispatch({
+      type: GET_SINGLE_ATTACHMENT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete Attachment
+export const deleteAttachment = (cardId, itemId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/attachment/${cardId}/${itemId}`);
+
+    dispatch({
+      type: DELETE_CARD_ATTACHMENT,
       payload: res.data,
     });
   } catch (err) {

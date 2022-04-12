@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const CardSchema = new Schema({
   title: {
@@ -11,12 +11,18 @@ const CardSchema = new Schema({
   label: {
     type: String,
   },
+  startdate: {
+    type: String,
+  },
+  deadline: {
+    type: String,
+  },
   members: [
     {
       _id: false,
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "users",
       },
       name: {
         type: String,
@@ -34,6 +40,23 @@ const CardSchema = new Schema({
       },
     },
   ],
+  attachment: [
+    {
+      name: {
+        type: String
+      },
+      filename:{
+        type: String
+      },
+      user: {
+        type : String
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   archived: {
     type: Boolean,
     required: true,
@@ -41,4 +64,4 @@ const CardSchema = new Schema({
   },
 });
 
-module.exports = Card = model('card', CardSchema);
+module.exports = Card = model("card", CardSchema);

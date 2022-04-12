@@ -14,7 +14,7 @@ const app = express();
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log('MongoDB Connected...');
+    console.log('MongoDB Connected');
   } catch (err) {
     console.error(err.message);
     // Exit process with failure
@@ -23,7 +23,15 @@ const app = express();
 })();
 
 // Init middleware
-app.use(express.json({ extended: false }));
+// app.use(express.json({ extended: false }));
+app.use(express.json({
+  limit: '100mb'
+}));
+app.use(express.urlencoded({
+  limit: '100mb',
+  extended: true, 
+  parameterLimit:50000
+}));
 
 // Define routes
 app.use('/api/users', require('./routes/api/users'));
@@ -32,6 +40,8 @@ app.use('/api/boards', require('./routes/api/boards'));
 app.use('/api/lists', require('./routes/api/lists'));
 app.use('/api/cards', require('./routes/api/cards'));
 app.use('/api/checklists', require('./routes/api/checklists'));
+app.use('/api/attachment', require('./routes/api/attachment'));
+app.use('/api/tasks', require('./routes/api/tasks'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

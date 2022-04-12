@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -10,11 +10,13 @@ import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
 import Navbar from '../other/Navbar';
+import GanttChart from '../chart/GanttChart';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  const [onStart, setOnStart] = useState("")
 
   useEffect(() => {
     dispatch(getBoard(match.params.id));
@@ -26,6 +28,10 @@ const Board = ({ match }) => {
 
   if (!isAuthenticated) {
     return <Redirect to='/' />;
+  }
+
+  const onDragStart = (start) => {
+    setOnStart(start.source.droppableId)
   }
 
   const onDragEnd = (result) => {
@@ -72,14 +78,17 @@ const Board = ({ match }) => {
             <BoardTitle board={board} />
             <Members />
           </div>
-          <BoardDrawer />
+          <div className='board-top-right' style={{display:'flex', justifyContent:'space-between', width:'25%' }}>
+            <GanttChart/>
+            <BoardDrawer />
+          </div>
         </div>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           <Droppable droppableId='all-lists' direction='horizontal' type='list'>
             {(provided) => (
               <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
                 {board.lists.map((listId, index) => (
-                  <List key={listId} listId={listId} index={index} />
+                  <List key={listId} listId={listId} boardId={match.params.id} index={index} dragDisbale={onStart}/>
                 ))}
                 {provided.placeholder}
                 <CreateList />

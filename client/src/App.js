@@ -13,7 +13,10 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
-import './App.css';
+import './Style.css';
+import Profile from './components/pages/Profile';
+import Settings from './components/pages/Settings';
+// import './App.css';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -34,6 +37,8 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/setting' component={Settings} />
             <Route exact path='/board/:id' component={Board} />
           </Switch>
         </Fragment>

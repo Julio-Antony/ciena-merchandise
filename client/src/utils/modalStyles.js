@@ -5,7 +5,13 @@ const useStyles = makeStyles((theme) => ({
     width: 400,
   },
   cardModal: {
-    width: 800,
+    width: 900,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+    },
+  },
+  chartModal: {
+    width: 1200,
     [theme.breakpoints.down('sm')]: {
       maxWidth: 400,
     },
@@ -23,11 +29,19 @@ const useStyles = makeStyles((theme) => ({
   labelTitle: {
     margin: '20px 0 10px',
   },
+  attachmentTitle: {
+    margin: '20px 0 10px',
+    color:'orange'
+  },
+  userText :{
+color: 'blue'
+  },
   colorPicker: {
     minWidth: 212,
   },
   noLabel: {
     width: 100,
+    marginBottom: '30px !important'
   },
   moveCardTitle: {
     marginTop: 20,
@@ -45,11 +59,35 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
   },
+
+  datePicker: {
+    background:'green',
+    display: 'flex',
+    justifyContent: 'space-around',
+    width:'20%',
+    margin: '2px 0 5px',
+  },
+
+  fileThumb: {
+    width:'100px !important',
+    height:'100px',
+    display:'flex',
+    margin:'20px 0 10px',
+    overflow:'hidden',
+    '&:hover':{
+      cursor: 'pointer'
+    }
+  },
+
+  thumbImg:{
+    backgroundSize:'cover'
+  },
+
   checklistItem: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    margin: '2px 0 5px',
+    marginBottom: '20px',
   },
   checklistFormLabel: {
     width: '100%',

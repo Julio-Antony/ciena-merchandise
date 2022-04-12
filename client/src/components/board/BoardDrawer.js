@@ -13,6 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArchiveIcon from '@material-ui/icons/Archive';
+import LocalPrintshopIcon from '@material-ui/icons/LocalPrintshop';
 
 import ArchivedLists from './ArchivedLists';
 import ArchivedCards from './ArchivedCards';
@@ -70,6 +71,12 @@ const BoardDrawer = () => {
                   <ArchiveIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Archived Cards'} />
+              </ListItem>
+              <ListItem button onClick={() => setViewingArchivedCards(true)}>
+                <ListItemIcon>
+                  <LocalPrintshopIcon/>
+                </ListItemIcon>
+                <ListItemText primary={'Export to PDF'} />
               </ListItem>
             </List>
             <Divider />

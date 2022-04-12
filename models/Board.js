@@ -17,6 +17,9 @@ const BoardSchema = new Schema(
         text: {
           type: String,
         },
+        source: {
+          type: String
+        },
         date: {
           type: Date,
           default: Date.now,
@@ -43,6 +46,12 @@ const BoardSchema = new Schema(
         },
       },
     ],
+    task_total: {
+      type: Number
+    },
+    task_complete: {
+      type: Number
+    },
   },
   {
     timestamps: true,

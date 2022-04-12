@@ -21,7 +21,7 @@ router.post(
       const { title, backgroundURL } = req.body;
 
       // Create and save the board
-      const newBoard = new Board({ title, backgroundURL });
+      const newBoard = new Board({ task_total: 0, task_complete: 0, title, backgroundURL });
       const board = await newBoard.save();
 
       // Add board to user's boards

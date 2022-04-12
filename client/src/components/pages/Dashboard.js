@@ -12,14 +12,14 @@ const Dashboard = () => {
   const loading = useSelector((state) => state.board.dashboardLoading);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getBoards());
-  }, [dispatch]);
-
+  
   useEffect(() => {
     document.title = 'Your Boards | TrelloClone';
   }, []);
-
+  
+  useEffect(() => {
+    dispatch(getBoards());
+  }, [dispatch]);
   if (!isAuthenticated) {
     return <Redirect to='/' />;
   }

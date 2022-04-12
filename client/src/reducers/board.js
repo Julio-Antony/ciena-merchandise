@@ -2,6 +2,7 @@ import {
   CLEAR_BOARD,
   GET_BOARDS,
   GET_BOARD,
+  GET_USER_CHECKLIST,
   ADD_BOARD,
   BOARD_ERROR,
   RENAME_BOARD,
@@ -23,6 +24,9 @@ import {
   EDIT_CHECKLIST_ITEM,
   COMPLETE_CHECKLIST_ITEM,
   DELETE_CHECKLIST_ITEM,
+  ADD_CARD_ATTACHMENT,
+  DELETE_CARD_ATTACHMENT,
+  GET_SINGLE_ATTACHMENT
 } from '../actions/types';
 
 const initialState = {
@@ -114,6 +118,8 @@ export default function (state = initialState, action) {
     case EDIT_CHECKLIST_ITEM:
     case COMPLETE_CHECKLIST_ITEM:
     case DELETE_CHECKLIST_ITEM:
+    case ADD_CARD_ATTACHMENT:
+    case DELETE_CARD_ATTACHMENT:
     case ARCHIVE_CARD:
     case ADD_CARD_MEMBER:
     case EDIT_CARD:
@@ -126,6 +132,11 @@ export default function (state = initialState, action) {
           ),
         },
       };
+    case GET_SINGLE_ATTACHMENT:
+      return {
+        ...state,
+        payload
+      }
     case MOVE_CARD:
       return {
         ...state,
@@ -180,6 +191,11 @@ export default function (state = initialState, action) {
           lists: payload,
         },
       };
+      case GET_USER_CHECKLIST:
+        return {
+          ...state,
+          profile: { ...state.profile, ...payload },
+        };
     default:
       return state;
   }

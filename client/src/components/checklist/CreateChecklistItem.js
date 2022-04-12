@@ -6,7 +6,7 @@ import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
-const CreateChecklistItem = ({ cardId }) => {
+const CreateChecklistItem = ({boardId, cardId }) => {
   const classes = useStyles();
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
@@ -14,7 +14,7 @@ const CreateChecklistItem = ({ cardId }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addChecklistItem(cardId, { text }));
+    dispatch(addChecklistItem(boardId, cardId, { text }));
     setText('');
   };
 
@@ -57,6 +57,7 @@ const CreateChecklistItem = ({ cardId }) => {
 };
 
 CreateChecklistItem.propTypes = {
+  boardId: PropTypes.string.isRequired,
   cardId: PropTypes.string.isRequired,
 };
 

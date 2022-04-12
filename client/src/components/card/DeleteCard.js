@@ -28,7 +28,7 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
 
   return (
     <div>
-      <Button variant='contained' color='secondary' onClick={handleClickOpen}>
+      <Button variant='contained' color='secondary' onClick={handleClickOpen} style={{width:'100%'}}>
         Delete Card
       </Button>
       <Dialog open={openDialog} onClose={handleClose}>

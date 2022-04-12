@@ -5,25 +5,26 @@ import ChecklistItem from './ChecklistItem';
 import { FormGroup, FormControl } from '@material-ui/core';
 import useStyles from '../../utils/modalStyles';
 
-const Checklist = ({ card }) => {
+const Checklist = ({boardId, card }) => {
   const classes = useStyles();
 
   return (
     <Fragment>
       <h3 className={classes.header}>Checklist</h3>
-      <FormControl component='fieldset'>
+      <FormControl component='fieldset'className={classes.modalSection}>
         <FormGroup>
           {card.checklist.map((item) => (
-            <ChecklistItem key={item._id} item={item} card={card} />
+            <ChecklistItem key={item._id} boardId={boardId} item={item} card={card} />
           ))}
         </FormGroup>
       </FormControl>
-      <CreateChecklistItem cardId={card._id} />
+      <CreateChecklistItem boardId={boardId} cardId={card._id} />
     </Fragment>
   );
 };
 
 Checklist.propTypes = {
+  boardId: PropTypes.object.isRequired,
   card: PropTypes.object.isRequired,
 };
 

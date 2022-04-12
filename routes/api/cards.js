@@ -83,10 +83,10 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// Edit a card's title, description, and/or label
+// Edit a card's title, description, start date, deadline, and/or label
 router.patch('/edit/:id', [auth, member], async (req, res) => {
   try {
-    const { title, description, label } = req.body;
+    const { title, description, label, startDate, deadline } = req.body;
     if (title === '') {
       return res.status(400).json({ msg: 'Title is required' });
     }
@@ -100,8 +100,17 @@ router.patch('/edit/:id', [auth, member], async (req, res) => {
     if (description || description === '') {
       card.description = description;
     }
+
     if (label || label === 'none') {
       card.label = label;
+    }
+
+    if (startDate || startDate === 'none') {
+      card.startdate = startDate;
+    }
+
+    if (deadline || deadline === 'none') {
+      card.deadline = deadline;
     }
     await card.save();
 

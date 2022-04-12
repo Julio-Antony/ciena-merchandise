@@ -9,10 +9,11 @@ const useStyles = makeStyles((theme) => ({
   showMenuButton: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: 150,
+    minWidth: 150,
   },
   drawer: {
     width: drawerWidth,
+    overflowY: 'unset',
     flexShrink: 0,
   },
   drawerPaper: {

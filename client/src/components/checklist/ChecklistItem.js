@@ -13,7 +13,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
-const ChecklistItem = ({ item, card }) => {
+const ChecklistItem = ({ boardId, item, card }) => {
   const classes = useStyles();
   const [text, setText] = useState(item.text);
   const [editing, setEditing] = useState(false);
@@ -30,8 +30,10 @@ const ChecklistItem = ({ item, card }) => {
   };
 
   const onComplete = async (e) => {
+    console.log(e.target.checked)
     dispatch(
       completeChecklistItem({
+        boardId,
         cardId: card._id,
         complete: e.target.checked,
         itemId: item._id,
@@ -40,7 +42,7 @@ const ChecklistItem = ({ item, card }) => {
   };
 
   const onDelete = async (e) => {
-    dispatch(deleteChecklistItem(card._id, item._id));
+    dispatch(deleteChecklistItem(boardId, card._id, item._id));
   };
 
   return (
@@ -101,6 +103,7 @@ const ChecklistItem = ({ item, card }) => {
 };
 
 ChecklistItem.propTypes = {
+  boardId: PropTypes.string.isRequired,
   item: PropTypes.object.isRequired,
   card: PropTypes.object.isRequired,
 };
