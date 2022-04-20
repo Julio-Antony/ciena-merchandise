@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   chartModal: {
-    width: 1200,
+    width: 1500,
+    height: '80vh',
     [theme.breakpoints.down('sm')]: {
       maxWidth: 400,
     },
@@ -81,6 +82,11 @@ color: 'blue'
 
   thumbImg:{
     backgroundSize:'cover'
+  },
+
+  modalImg : {
+    maxWidth: '100%',
+    maxHeight: 'auto'
   },
 
   checklistItem: {

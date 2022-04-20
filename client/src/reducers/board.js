@@ -26,7 +26,8 @@ import {
   DELETE_CHECKLIST_ITEM,
   ADD_CARD_ATTACHMENT,
   DELETE_CARD_ATTACHMENT,
-  GET_SINGLE_ATTACHMENT
+  GET_SINGLE_ATTACHMENT,
+  GET_CARDS_OF_A_BOARD
 } from '../actions/types';
 
 const initialState = {
@@ -93,6 +94,11 @@ export default function (state = initialState, action) {
             list._id === payload._id ? payload : list
           ),
         },
+      };
+    case GET_CARDS_OF_A_BOARD:
+      return {
+        ...state,
+         payload
       };
     case GET_CARD:
       return {

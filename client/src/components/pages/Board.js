@@ -10,7 +10,7 @@ import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
 import Navbar from '../other/Navbar';
-import GanttChart from '../chart/GanttChart';
+import GanttButton from '../chart/GanttButton';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
@@ -79,7 +79,7 @@ const Board = ({ match }) => {
             <Members />
           </div>
           <div className='board-top-right' style={{display:'flex', justifyContent:'space-between', width:'25%' }}>
-            <GanttChart/>
+            <GanttButton board={board}/>
             <BoardDrawer />
           </div>
         </div>

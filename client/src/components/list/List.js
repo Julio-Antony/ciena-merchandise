@@ -48,7 +48,8 @@ const List = ({ boardId, listId, index, dragDisable }) => {
             <ListTitle list={list} />
             <ListMenu listId={listId} />
           </div>
-          <Droppable droppableId={listId} isDropDisabled={dragDisable !== cardId}
+          <Droppable droppableId={listId} 
+          // isDropDisabled={dragDisable !== cardId}
            type="card">
             {(provided) => (
               <div

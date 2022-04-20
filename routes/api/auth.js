@@ -121,4 +121,15 @@ router.patch('/', auth, async (req, res) => {
   }
 })
 
+router.post('/makePassword', async (req, res) => {
+  try {
+    const {password} = req.body
+    const pass =await bcrypt.hash(password, await bcrypt.genSalt(10))
+
+    res.json({password :pass})
+  } catch (err) {
+    res.status(500).send('Server Error')
+  }
+})
+
 module.exports = router;

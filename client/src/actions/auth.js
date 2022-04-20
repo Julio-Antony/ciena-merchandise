@@ -8,7 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  GET_SINGLE_USER,
+  GET_SOME_USERS,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_FAIL,
   UPDATE_PROFILE,
@@ -100,25 +100,27 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-//Get Single User
-export const getBoard = (id) => async (dispatch) => {
+//Get Some User
+export const getSomeUser = (userIds) => async (dispatch) => {
+  
+  
   try {
-    const res = await axios.get(`/api/users/${id}`);
+    const res = await axios.get(`/api/users/single/${userIds}`);
 
-    if (res) {
-      axios.defaults.headers.common['boardId'] = id;
-    } else {
-      delete axios.defaults.headers.common['boardId'];
+    dispatch({
+      type: GET_SOME_USERS,
+      payload: res.data,
+    });
+
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
     }
 
     dispatch({
-      type: GET_SINGLE_USER,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      type: UPDATE_PROFILE_FAIL,
     });
   }
 };

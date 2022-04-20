@@ -10,6 +10,7 @@ import {
   CHANGE_PASSWORD_FAIL,
   UPDATE_PROFILE,
   UPDATE_PROFILE_FAIL,
+  GET_SOME_USERS
 } from "../actions/types";
 
 const initialState = {
@@ -50,6 +51,13 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
       };
+      case GET_SOME_USERS:
+        return {
+          ...state,
+          user : {
+            ...state.user, ...payload
+          }
+        }
     case CHANGE_PASSWORD_FAIL:
     case CHANGE_PASSWORD:
     case UPDATE_PROFILE:

@@ -8,7 +8,7 @@ import DownloadButton from "./DownloadButton";
 
 const AttachmentModal = ({ open, setOpen, attachment }) => {
   const classes = useStyles();
-  const extention = attachment.name.split(".").pop();
+  const extention = attachment.name ? attachment.name.split(".").pop() : ""
 
 
   return (
@@ -21,19 +21,19 @@ const AttachmentModal = ({ open, setOpen, attachment }) => {
                 <img
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
-                  className={classes.thumbImg}
+                  className={classes.modalImg}
                 />
               ) : extention === "jpg" ? (
                 <img
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
-                  className={classes.thumbImg}
+                  className={classes.modalImg}
                 />
               ) : extention === "jpeg" ? (
                 <img
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
-                  className={classes.thumbImg}
+                  className={classes.modalImg}
                 />
               ) : extention === "pdf" ? (
                 <div className="pdf-container">

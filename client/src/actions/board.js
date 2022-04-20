@@ -12,6 +12,7 @@ import {
   RENAME_LIST,
   ARCHIVE_LIST,
   GET_CARD,
+  GET_CARDS_OF_A_BOARD,
   ADD_CARD,
   EDIT_CARD,
   MOVE_CARD,
@@ -193,6 +194,24 @@ export const archiveList = (listId, archive) => async (dispatch) => {
     });
   }
 };
+
+// Get all cards of a board
+export const getCardsOfBoard = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/cards/cardsInBoard/${id}`);
+
+    dispatch({
+      type: GET_CARDS_OF_A_BOARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 
 // Get card
 export const getCard = (id) => async (dispatch) => {

@@ -23,6 +23,7 @@ const Setting = ({ user }) => {
   const [username, setUsername] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [avatar, setAvatar] = useState(user.avatar);
+  const [disable, setDisable] = useState(true)
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Setting = ({ user }) => {
     let file_reader1 = new FileReader();
     let file1 = event.target.files[0];
     file_reader1.onload = () => {
+      setDisable(false)
       setAvatar(
         file_reader1.result.substr(file_reader1.result.indexOf(",") + 1)
       );
@@ -40,6 +42,16 @@ const Setting = ({ user }) => {
     if (file1) {
       file_reader1.readAsDataURL(file1);
     }
+  }
+
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value)
+    setDisable(false)
+  }
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value)
+    setDisable(false)
   }
 
   const onSubmit = async (e) => {
@@ -95,20 +107,21 @@ const Setting = ({ user }) => {
                 id="outlined-required"
                 label="Username"
                 defaultValue={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={onChangeUsername}
               />
               <TextField
                 required
                 id="outlined-required"
                 label="Email"
                 defaultValue={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={onChangeEmail}
               />
             </Stack>
             <Button
               type="submit"
               variant="contained"
               color="primary"
+              disabled={disable}
               className={classes.button}
             >
               Save All Changes
