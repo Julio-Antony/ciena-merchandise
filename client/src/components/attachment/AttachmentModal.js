@@ -1,42 +1,44 @@
-import { Box, Grid, Modal, Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import React from "react";
 import { Viewer } from "@react-pdf-viewer/core";
 import { Worker } from "@react-pdf-viewer/core";
 
 import useStyles from "../../utils/modalStyles";
 import DownloadButton from "./DownloadButton";
+import { Modal } from "@material-ui/core";
 
-const AttachmentModal = ({ open, setOpen, attachment }) => {
+const AttachmentModal = ({open, setOpen, attachment, extention}) => {
   const classes = useStyles();
-  const extention = attachment.name ? attachment.name.split(".").pop() : ""
-
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className={`${classes.paper} ${classes.cardModal}`}>
+      // <Modal open={open} onClose={() => setOpenAttachment(false)}>
+        <div id="attachment" className={`${classes.paper} ${classes.cardModal}`}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} justifyContent="center">
             <Grid item lg={10}>
               {extention === "png" ? (
                 <img
+                id="attachment-value"
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
                   className={classes.modalImg}
                 />
               ) : extention === "jpg" ? (
                 <img
+                id="attachment-value"
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
                   className={classes.modalImg}
                 />
               ) : extention === "jpeg" ? (
                 <img
+                id="attachment-value"
                   src={"data:image/png;base64," + attachment.filename}
                   alt="thumb"
                   className={classes.modalImg}
                 />
               ) : extention === "pdf" ? (
-                <div className="pdf-container">
+                <div className="pdf-container" id="attachment-value">
                   <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.js">
                     <div
                       style={{
@@ -69,7 +71,7 @@ const AttachmentModal = ({ open, setOpen, attachment }) => {
           </Grid>
         </Box>
       </div>
-    </Modal>
+      // </Modal>
   );
 };
 

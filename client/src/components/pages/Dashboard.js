@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard-and-navbar'>
-      <Navbar />
+      <Navbar user={user}/>
       <section className='dashboard'>
         <h1>Welcome {user && user.name}</h1>
         <h2>Your Boards</h2>

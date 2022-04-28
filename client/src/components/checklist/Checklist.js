@@ -24,7 +24,7 @@ const Checklist = ({boardId, card }) => {
 };
 
 Checklist.propTypes = {
-  boardId: PropTypes.object.isRequired,
+  boardId: PropTypes.string.isRequired,
   card: PropTypes.object.isRequired,
 };
 

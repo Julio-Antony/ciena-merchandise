@@ -22,8 +22,8 @@ const settings = [
   { title: "Logout", url: "/", icon: PowerSettingsNewIcon },
 ];
 
-const Navbar = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+const Navbar = ({user}) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -44,7 +44,7 @@ const Navbar = () => {
       <Link to="/dashboard" style={{ marginTop: "10px" }}>
         Home
       </Link>
-      <Box sx={{ flexGrow: 0 }}>
+      {user && <Box sx={{ flexGrow: 0 }}>
         <Stack direction="row" spacing={2}>
           <Typography color="white" mt={1}>{user.name}</Typography>
           <Tooltip title="user menu">
@@ -72,9 +72,9 @@ const Navbar = () => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
+          {settings.map((setting, index) => (
             <MenuItem
-              key={setting.index}
+              key={index}
               onClick={
                 setting.title === "Logout" ? () => dispatch(logout()) : null
               }
@@ -88,7 +88,7 @@ const Navbar = () => {
             </MenuItem>
           ))}
         </Menu>
-      </Box>
+      </Box>}
     </nav>
   );
 };

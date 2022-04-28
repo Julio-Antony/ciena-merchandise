@@ -10,10 +10,10 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import CloseIcon from '@material-ui/icons/Close';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ArchiveIcon from '@material-ui/icons/Archive';
-import LocalPrintshopIcon from '@material-ui/icons/LocalPrintshop';
+// import ArchiveIcon from '@material-ui/icons/Archive';
+// import LocalPrintshopIcon from '@material-ui/icons/LocalPrintshop';
 
 import ArchivedLists from './ArchivedLists';
 import ArchivedCards from './ArchivedCards';
@@ -59,7 +59,7 @@ const BoardDrawer = () => {
               </Button>
             </div>
             <Divider />
-            <List>
+            {/* <List>
               <ListItem button onClick={() => setViewingArchivedLists(true)}>
                 <ListItemIcon>
                   <ArchiveIcon />
@@ -79,7 +79,7 @@ const BoardDrawer = () => {
                 <ListItemText primary={'Export to PDF'} />
               </ListItem>
             </List>
-            <Divider />
+            <Divider /> */}
             <div className={classes.activityTitle}>
               <h3>Activity</h3>
             </div>

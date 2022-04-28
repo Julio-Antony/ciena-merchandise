@@ -456,3 +456,92 @@ body {
   height: 200px;
   border-radius: 50%;
 }
+
+.gantt-chart{
+  font-family: Arial;
+  margin-bottom: 40px;
+  padding-top: 40px;
+}
+
+.gantt-chart .wrapper{
+  width: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 2px solid saddlebrown;
+}
+
+.timeline-wrapper{
+  margin-left: 320px;
+}
+
+.timeline{
+  width: 1100px;
+  display:flex;
+  background-color: #EEEFF1;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 30px;
+}
+
+.timeline > div {
+  display: flex;
+  flex-flow: column wrap;
+  height: inherit;
+  width: inherit;
+  margin: 0;
+  border-right: 2px solid #333;
+  text-align: center;
+}
+
+.timeline > div:last-child{
+  border-right: none;
+}
+
+.cart-sidebar{
+  width: 300px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.graph{
+  width: 1100px;
+  position: absolute;
+  display: flex;
+  margin-left: 300px;
+  padding-bottom: 10px;
+  z-index: -1000;
+}
+
+.graph > .graph-divider{
+  display: flex;
+  flex-flow: column wrap;
+  height: inherit;
+  width: inherit;
+  margin: 0;
+  border-right: 2px solid #e8e9eb;
+}
+
+.graph > .graph-divider:last-child{
+  border-right: none;
+}
+
+.legend{
+  margin-left: 800px;
+  margin-top: 100px;
+}
+
+.legend-text{
+  font-size: 16px;
+  color: #000303;
+  font-weight: 600;
+  white-space: pre;
+  margin-left: 34px;
+}
+
+.legend-bar{
+  width: 40px;
+  height: 20px;
+  border-radius: 5px;
+  margin-left: 5px;
+}

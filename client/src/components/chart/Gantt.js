@@ -36,6 +36,7 @@ function Gantt({ tasks, style }) {
   const relNow = (now - first.start.getTime()) / fullDuration;
 
   console.log(weeks);
+  console.log(fullDuration)
 
   tasks = tasks.map((task) => ({
     ...task,

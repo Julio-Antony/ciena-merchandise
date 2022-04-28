@@ -148,6 +148,20 @@ color: 'blue'
   archiveButton: {
     marginBottom: 5,
   },
+
+
+  weekWrap:{
+    width: "fit-content",
+    height: 40,
+    borderRadius: '30px',
+    backgroundColor: "#E9DAC1",
+    paddingTop: 10,
+    paddingLeft : 20,
+  },
+  taskBar:{
+    width: 2,
+    color:"#7882A4"
+  }
 }));
 
 export default useStyles;

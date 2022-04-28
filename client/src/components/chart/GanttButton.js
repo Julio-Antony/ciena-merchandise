@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react'
 import useStyles from '../../utils/drawerStyles';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import GanttChart from './GanttChart';
+import Modals from '../card/Modals';
 
 const GanttButton = ({board}) => {
   const classes = useStyles();
@@ -10,7 +11,8 @@ const GanttButton = ({board}) => {
       
   return (
     <Fragment>
-      <GanttChart open={openModal} setOpen={setOpenModal} board={board}/>
+      {/* <GanttChart openGantt={openModal} setOpenGantt={setOpenModal} board={board}/> */}
+      <Modals open={openModal} setOpen={setOpenModal} type={"modal-gantt"}/>
       <Button variant='contained' className={classes.showMenuButton} onClick={()=> setOpenModal(true)}>
         <BarChartIcon 
         style={{transform:"rotate(90deg)", marginRight:'10px'}} 

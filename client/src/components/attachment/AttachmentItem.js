@@ -10,12 +10,14 @@ import PDF from "../../img/pdf.png";
 import Excel from "../../img/excel.png";
 import Word from "../../img/word.png";
 import PowerPoint from "../../img/ppt.png";
+import Modals from "../card/Modals";
 import AttachmentModal from "./AttachmentModal";
 
 const AttachmentItem = ({ doc, card }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [file, setFile] = useState(doc);
+  // const [file, setFile] = useState(doc);
+  const file = doc
   const [openDialog, setOpenDialog] = useState(false);
   const extention = file.name.split(".").pop();
   const attachment = useSelector((state) => state.board.payload)
@@ -25,9 +27,9 @@ dispatch(getSingleAttachment(card._id, doc._id))
 setOpenDialog(true)
 } 
 
-  useEffect(() => {
-    setFile(doc);
-  }, [doc]);
+  // useEffect(() => {
+  //   setFile(doc);
+  // }, [doc]);
 
   const onDelete = async (e) => {
     dispatch(deleteAttachment(card._id, doc._id));
@@ -35,7 +37,8 @@ setOpenDialog(true)
 
   return (
     <>
-    <AttachmentModal open={openDialog} setOpen={setOpenDialog} attachment={attachment}/>
+    {/* <AttachmentModal open={openDialog} setOpenAttachment={setOpenDialog} attachment={file} extention={extention}/> */}
+    <Modals open={openDialog} setOpen={setOpenDialog} data={file} extention={extention} type="attachment"/>
     <div>
       <Stack direction="row" spacing={2}>
         <div className={classes.fileThumb} onClick={onOpenDialog}>

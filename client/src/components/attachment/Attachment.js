@@ -8,6 +8,10 @@ import AttachmentItem from "./AttachmentItem";
 const Attachment = ({ card }) => {
   const classes = useStyles();
 
+  if (!card) {
+    return <></>;
+  }
+
   return (
     <Fragment>
       {card.attachment.length > 0 && (
@@ -15,9 +19,9 @@ const Attachment = ({ card }) => {
         Attachment
       </h3>
       )}
-      {card.attachment.map((doc) => (
+      {card.attachment.map((doc, index) => (
         <div>
-          <AttachmentItem key={doc._id} doc={doc} card={card} style={classes.modalSection}/>
+          <AttachmentItem key={index} doc={doc} card={card} style={classes.modalSection}/>
         </div>
       ))}
     </Fragment>

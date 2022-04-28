@@ -24,7 +24,7 @@ const List = ({ boardId, listId, index, dragDisable }) => {
 
   const createCardFormRef = useRef(null);
 
-  const cardId = member.length > 0 && member[0].cardId
+  // const cardId = member.length > 0 && member[0].cardId
 
   useEffect(() => {
     addingCard && createCardFormRef.current.scrollIntoView();
