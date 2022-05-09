@@ -9,6 +9,7 @@ import {
 import React from "react";
 import useStyles from "../../utils/modalStyles";
 import unknwon from "../../img/unknown.jpg";
+import { Link } from "react-router-dom";
 
 const CardUser = ({ user }) => {
   const classes = useStyles();
@@ -32,6 +33,7 @@ const CardUser = ({ user }) => {
           </Typography>
         </CardContent>
         <CardActions>
+        <Link to="/setting">
           <Button
             className={classes.button}
             variant="contained"
@@ -39,6 +41,7 @@ const CardUser = ({ user }) => {
           >
             Edit Account
           </Button>
+        </Link>
         </CardActions>
       </Box>
     </Card>

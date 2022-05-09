@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import Stack from "@mui/material/Stack";
 import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteAttachment, getSingleAttachment } from "../../actions/board";
+import { useDispatch } from "react-redux";
+import { deleteAttachment } from "../../actions/board";
 import useStyles from "../../utils/modalStyles";
 import PDF from "../../img/pdf.png";
 import Excel from "../../img/excel.png";
 import Word from "../../img/word.png";
 import PowerPoint from "../../img/ppt.png";
 import Modals from "../card/Modals";
-import AttachmentModal from "./AttachmentModal";
 
 const AttachmentItem = ({ doc, card }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const [file, setFile] = useState(doc);
-  const file = doc
+  const file = doc;
   const [openDialog, setOpenDialog] = useState(false);
   const extention = file.name.split(".").pop();
-  const attachment = useSelector((state) => state.board.payload)
 
-const onOpenDialog = async (e) => {
-dispatch(getSingleAttachment(card._id, doc._id))
-setOpenDialog(true)
-} 
-
-  // useEffect(() => {
-  //   setFile(doc);
-  // }, [doc]);
+  const onOpenDialog = async (e) => {
+    setOpenDialog(true);
+  };
 
   const onDelete = async (e) => {
     dispatch(deleteAttachment(card._id, doc._id));
@@ -37,42 +29,59 @@ setOpenDialog(true)
 
   return (
     <>
-    {/* <AttachmentModal open={openDialog} setOpenAttachment={setOpenDialog} attachment={file} extention={extention}/> */}
-    <Modals open={openDialog} setOpen={setOpenDialog} data={file} extention={extention} type="attachment"/>
-    <div>
-      <Stack direction="row" spacing={2}>
-        <div className={classes.fileThumb} onClick={onOpenDialog}>
-          {extention === "png" ? (
-            <img src={"data:image/png;base64," + doc.filename} alt="thumb" className={classes.thumbImg}/>
-          ) :extention === "jpg" ? (
-            <img src={"data:image/png;base64," + doc.filename} alt="thumb" className={classes.thumbImg}/>
-          ) : extention === "jpeg" ? (
-            <img src={"data:image/png;base64," + doc.filename} alt="thumb" className={classes.thumbImg}/>
-          ) : extention === "pdf" ? (
-            <img src={PDF} alt="pdf" />
-          ) : extention === "docx" ? (
-            <img src={Word} alt="word" />
-          ) : extention === "xlsx" ? (
-            <img src={Excel} alt="excel" />
-          ) : extention === "pptx" ? (
-            <img src={PowerPoint} alt="ppt" />
-          ) : null}
-        </div>
-        <Stack>
-          <h3 className={classes.attachmentTitle}>{file.name}</h3>
-          <Stack direction="row" spacing={1} style={{ marginBottom: "10px" }}>
-            <p>Added by</p> <p className={classes.userText}>{file.user}</p>{" "}
-            <p>at</p> <Moment format="YYYY/MM/DD hh:mm">{file.date}</Moment>
-          </Stack>
+      <Modals
+        open={openDialog}
+        setOpen={setOpenDialog}
+        data={file}
+        extention={extention}
+        type="attachment"
+      />
+      <div>
+        <Stack direction="row" spacing={2}>
+          <div className={classes.fileThumb} onClick={onOpenDialog}>
+            {extention === "png" ? (
+              <img
+                src={"data:image/png;base64," + doc.filename}
+                alt="thumb"
+                className={classes.thumbImg}
+              />
+            ) : extention === "jpg" ? (
+              <img
+                src={"data:image/png;base64," + doc.filename}
+                alt="thumb"
+                className={classes.thumbImg}
+              />
+            ) : extention === "jpeg" ? (
+              <img
+                src={"data:image/png;base64," + doc.filename}
+                alt="thumb"
+                className={classes.thumbImg}
+              />
+            ) : extention === "pdf" ? (
+              <img src={PDF} alt="pdf" />
+            ) : extention === "docx" ? (
+              <img src={Word} alt="word" />
+            ) : extention === "xlsx" ? (
+              <img src={Excel} alt="excel" />
+            ) : extention === "pptx" ? (
+              <img src={PowerPoint} alt="ppt" />
+            ) : null}
+          </div>
+          <Stack>
+            <h3 className={classes.attachmentTitle}>{file.name}</h3>
+            <Stack direction="row" spacing={1} style={{ marginBottom: "10px" }}>
+              <p>Added by</p> <p className={classes.userText}>{file.user}</p>{" "}
+              <p>at</p> <Moment format="YYYY/MM/DD hh:mm">{file.date}</Moment>
+            </Stack>
 
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="secondary" onClick={onDelete}>
-              Delete
-            </Button>
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" color="secondary" onClick={onDelete}>
+                Delete
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
-    </div>
+      </div>
     </>
   );
 };

@@ -23,7 +23,7 @@ const Settings = () => {
   return (
     <div>
       <div className="dashboard-and-navbar">
-        <Navbar />
+        <Navbar user={user}/>
         <section className="board">
           <Grid container spacing={2}>
             <Grid item xs={3} style={{ backgroundColor: "#EFFFFD", height:"90vh"}} mt={1}>

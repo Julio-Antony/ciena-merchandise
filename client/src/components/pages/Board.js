@@ -14,7 +14,7 @@ import GanttButton from '../chart/GanttButton';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const {user, isAuthenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [onStart, setOnStart] = useState("")
 
@@ -23,7 +23,7 @@ const Board = ({ match }) => {
   }, [dispatch, match.params.id]);
 
   useEffect(() => {
-    if (board?.title) document.title = board.title + ' | TrelloClone';
+    if (board?.title) document.title = board.title + ' | DSAJ Workplace';
   }, [board?.title]);
 
   if (!isAuthenticated) {
@@ -54,7 +54,7 @@ const Board = ({ match }) => {
 
   return !board ? (
     <Fragment>
-      <Navbar />
+      <Navbar user={user}/>
       <Box className='board-loading'>
         <CircularProgress />
       </Box>
@@ -71,7 +71,7 @@ const Board = ({ match }) => {
           ')',
       }}
     >
-      <Navbar />
+      <Navbar user={user}/>
       <section className='board'>
         <div className='board-top'>
           <div className='board-top-left'>
@@ -79,7 +79,7 @@ const Board = ({ match }) => {
             <Members />
           </div>
           <div className='board-top-right' style={{display:'flex', justifyContent:'space-between', width:'25%' }}>
-            <GanttButton board={board}/>
+            <GanttButton board={board} boardId={match.params.id}/>
             <BoardDrawer />
           </div>
         </div>

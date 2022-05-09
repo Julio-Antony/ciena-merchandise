@@ -9,9 +9,8 @@ import Card from "../card/Card";
 import CreateCardForm from "./CreateCardForm";
 import Button from "@material-ui/core/Button";
 
-const List = ({ boardId, listId, index, dragDisable }) => {
+const List = ({ boardId, listId, index }) => {
   const [addingCard, setAddingCard] = useState(false);
-  const [member, setMember] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const list = useSelector((state) =>
     state.board.board.listObjects.find((object) => object._id === listId)
@@ -23,8 +22,6 @@ const List = ({ boardId, listId, index, dragDisable }) => {
   }, [dispatch, listId]);
 
   const createCardFormRef = useRef(null);
-
-  // const cardId = member.length > 0 && member[0].cardId
 
   useEffect(() => {
     addingCard && createCardFormRef.current.scrollIntoView();
@@ -67,7 +64,6 @@ const List = ({ boardId, listId, index, dragDisable }) => {
                       cardId={cardId}
                       list={list}
                       index={index}
-                      setMember={setMember}
                       user={user}
                     />
                   ))}

@@ -160,17 +160,11 @@ router.get("/", [auth], async (req, res) => {
         object.members.find((object) => object.user.toString() === user._id.toString())
       );
 
-    const task_noDeadline = card
-      .filter((object) => !object.deadline)
-      .filter((object) =>
-        object.members.find((object) => object.user.toString() === user._id.toString())
-      );
-
     const task_todo = [];
-    for (const task of task_noDeadline) {
-      if (task.checklist.find((object) => object.complete === false)) {
+    for (const task of filteredDeadline) {
+      if (moment(task.startdate).unix() - moment().unix() > 0) {
         task_todo.push(
-          task.checklist.find((object) => object.complete === false)
+          ...task.checklist.filter((object) => object.complete === false)
         );
       }
     }
@@ -183,16 +177,16 @@ router.get("/", [auth], async (req, res) => {
           0
         )
           task_overdue.push(
-            task.checklist.find((object) => object.complete === false)
+            ...task.checklist.filter((object) => object.complete === false)
           );
       }
     }
 
     const task_onProgress = [];
     for (const task of filteredDeadline) {
-      if (moment(task.deadline).unix() - moment().unix() > 0) {
+      if (moment(task.deadline).unix() - moment().unix() > 0 && moment(task.startdate).unix() - moment().unix() < 0) {
         task_onProgress.push(
-          task.checklist.find((object) => object.complete === false)
+          ...task.checklist.filter((object) => object.complete === false)
         );
       }
     }

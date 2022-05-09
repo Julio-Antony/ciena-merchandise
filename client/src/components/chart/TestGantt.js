@@ -41,22 +41,21 @@ const TestGantt = ({ tasks, style, board }) => {
     tasks
       .filter((task) => task.type === "category")
       .map(
-        (task) =>
-          (task.start.getTime() - first.start.getTime()) / fullDuration
+        (task) => (task.start.getTime() - first.start.getTime()) / fullDuration
       )
   );
   return (
-    <div id="gantt" className="gantt-chart">
-      <Stack direction="row" justifyContent="center" spacing={2} mb={3}>
-        <Typography variant="h4">{board.title}</Typography>
-        <Divider orientation="vertical" variant="middle" flexItem ml={2} />
-        <Typography variant="h4" color="#2a3eb1">{`${Math.round(
-          board.task_total > 0
-            ? (board.task_complete / board.task_total) * 100
-            : 0
-        )}%`}</Typography>
-      </Stack>
-      <div className="wrapper">
+    <div className="gantt-chart">
+      <div className="wrapper" id="gantt">
+        <Stack direction="row" justifyContent="center" spacing={2} mb={3}>
+          <Typography variant="h4">{board.title}</Typography>
+          <Divider orientation="vertical" variant="middle" flexItem ml={2} />
+          <Typography variant="h4" color="#2a3eb1">{`${Math.round(
+            board.task_total > 0
+              ? (board.task_complete / board.task_total) * 100
+              : 0
+          )}%`}</Typography>
+        </Stack>
         <div id="timeline-wrapper" className="timeline-wrapper">
           <div id="timeline" className="timeline">
             {[...Array(weeks).keys()].map((week) => (
@@ -67,18 +66,16 @@ const TestGantt = ({ tasks, style, board }) => {
           </div>
         </div>
         <div id="tasks" style={{ marginLeft: padX, marginTop: padY }}>
-          <div
-            className="graph"
-          >
-              {[...Array(weeks).keys()].map((week) => (
-                <div
-                  key={week}
-                  style={{
-                    height: tasks.length * 32,
-                  }}
-                  className="graph-divider"
-                ></div>
-              ))}
+          <div className="graph">
+            {[...Array(weeks).keys()].map((week) => (
+              <div
+                key={week}
+                style={{
+                  height: tasks.length * 32,
+                }}
+                className="graph-divider"
+              ></div>
+            ))}
           </div>
           {tasks.map((task, i) => (
             <div key={i}>

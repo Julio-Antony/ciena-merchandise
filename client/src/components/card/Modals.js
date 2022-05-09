@@ -4,17 +4,15 @@ import AttachmentModal from '../attachment/AttachmentModal';
 import { Modal } from '@material-ui/core';
 
 const Modals = ({open, setOpen, type, data, chart, extention}) => {
-  console.log(data)
-  console.log(chart)
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div>
       {
       type === "modal-gantt" ? (
-        <GanttChart/>
-      ) : (
+        <GanttChart board={chart}/>
+      ) : type === "attachment" ? (
         <AttachmentModal attachment={data} extention={extention}/>
-      )}
+      ) : null}
       </div>
     </Modal>
   )

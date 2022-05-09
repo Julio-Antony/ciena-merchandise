@@ -8,33 +8,26 @@ const ButtonDownload = ({ title }) => {
     const input = document.getElementById("gantt");
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new JsPDF();
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
-      const widthRatio = pageWidth / canvas.width;
-      const heightRatio = pageHeight / canvas.height;
-      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
-
-      const canvasWidth = canvas.width * ratio;
-      const canvasHeight = canvas.height * ratio;
-
-      const marginX = (pageWidth - canvasWidth) / 2;
-      const marginY = (pageHeight - canvasHeight) / 2;
+      const pdf = new JsPDF({
+        orientation: 'potrait',
+      });
+      // const imgProps= pdf.getImageProperties(imgData);
+      //   const pdfWidth = pdf.internal.pageSize.getWidth();
+      //   const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
       pdf.addImage(
         imgData,
-        "JPEG",
-        0,
-        0,
-        canvasWidth,
-        canvasHeight,
-        marginX,
-        marginY,
+        "PNG",
+        10,
+        10,
+        // pdfWidth,
+        // pdfHeight,
+        190,
+        278,
         "a",
         "FAST"
       );
-      // pdf.output('dataurlnewwindow');
-      pdf.save(`${title} - Gannt Chart`);
+      pdf.output('dataurlnewwindow');
+      // pdf.save(`${title} - Gannt Chart`);
     });
   };
 

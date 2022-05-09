@@ -21,7 +21,7 @@ import {
 } from "@material-ui/core";
 import CardModal from "./CardModal";
 
-const Card = ({boardId, cardId, list, index, setMember, user }) => {
+const Card = ({boardId, cardId, list, index, user }) => {
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -40,8 +40,6 @@ const Card = ({boardId, cardId, list, index, setMember, user }) => {
 
   useEffect(() => {
     if (card) {
-      const members = card.members.map((object)=>({cardId:cardId, ...object})).filter((object)=> object.name === user.name)
-      setMember(members);
       setTitle(card.title);
       card.checklist &&
         setCompleteItems(
@@ -51,7 +49,7 @@ const Card = ({boardId, cardId, list, index, setMember, user }) => {
           )
         );
     }
-  }, [card, setMember, cardId]);
+  }, [card, cardId]);
 
   useEffect(() => {
     cardRef && cardRef.current && setHeight(cardRef.current.clientHeight);

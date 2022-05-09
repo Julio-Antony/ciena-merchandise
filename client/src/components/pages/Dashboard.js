@@ -12,7 +12,6 @@ const Dashboard = () => {
   const loading = useSelector((state) => state.board.dashboardLoading);
   const dispatch = useDispatch();
 
-  
   useEffect(() => {
     document.title = 'Your Boards | TrelloClone';
   }, []);

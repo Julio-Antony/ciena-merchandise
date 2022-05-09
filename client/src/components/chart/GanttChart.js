@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCardsOfBoard } from "../../actions/board";
 import ButtonDownload from "./ButtonDownload";
 import TestGantt from "./TestGantt";
-import { Modal } from "@material-ui/core";
 
-const GanttChart = ({ openGantt, setOpenGantt, board }) => {
+const GanttChart = ({ board }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const allCards = useSelector((state) => state.board.payload);
 
   console.log(allCards)
+  console.log(typeof(allCards))
 
   useEffect(() => {
     dispatch(getCardsOfBoard(board._id));
@@ -64,7 +64,6 @@ const GanttChart = ({ openGantt, setOpenGantt, board }) => {
   const tasks = [].concat(...task);
 
   return (
-      // <Modal aria-labelledby="gantt-cart" aria-describedby="gant-chart-value" open={openGantt} onClose={() => setOpenGantt(false)}>
         <div id="gantt-cart" className={`${classes.paper} ${classes.chartModal}`}>
       {tasks.length > 0 ? (
           <div className="Gantt" id="gant-chart-value">
@@ -75,7 +74,6 @@ const GanttChart = ({ openGantt, setOpenGantt, board }) => {
         <h1>NO CARDS YET</h1>
         )}
         </div>
-      // </Modal>
   );
 };
 

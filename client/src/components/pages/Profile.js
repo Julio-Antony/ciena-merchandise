@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <div>
       <div className="dashboard-and-navbar">
-        <Navbar />
+        <Navbar user={user}/>
         <section className="board">
           <Grid container spacing={2}>
             <Grid item lg={3}>
