@@ -38,6 +38,20 @@ const CardSchema = new Schema({
       complete: {
         type: Boolean,
       },
+      member: {
+        _id: false,
+          type: Schema.Types.ObjectId,
+          ref: "users"
+      },
+      start: {
+        type: Date
+      },
+      end: {
+        type: Date
+      },
+      portion: {
+        type: Number
+      }
     },
   ],
   attachment: [
@@ -62,6 +76,9 @@ const CardSchema = new Schema({
     required: true,
     default: false,
   },
+},
+{
+  timestamps: true,
 });
 
 module.exports = Card = model("card", CardSchema);

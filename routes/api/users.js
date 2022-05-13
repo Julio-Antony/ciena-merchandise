@@ -79,7 +79,7 @@ router.get('/:input', auth, async (req, res) => {
   }
 });
 
-//Get some users
+//Get single user
 router.get('/single/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -90,6 +90,20 @@ router.get('/single/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+//Get some users
+router.post('/multiple', auth, async (req, res) => {
+  const ids = req.body.ids
+  try {
+    const user = await User.find({_id:{$in : ids}}).select('_id name avatar')
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 
 module.exports = router;

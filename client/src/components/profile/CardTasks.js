@@ -21,22 +21,22 @@ const CardTasks = () => {
         {
           title: "To Do :",
           value: tasks.to_do,
-          color: "#D7E9F7",
+          color: "#61CFED",
         },
         {
           title: "On Progress :",
           value: tasks.on_progress,
-          color: "#FDD998",
+          color: "#FF8D29",
         },
         {
           title: "Overdue :",
           value: tasks.overdue,
-          color: "#FF7878",
+          color: "#ff6961",
         },
         {
           title: "Done :",
           value: tasks.done,
-          color: "#CDF2CA",
+          color: "#5CCE99",
         },
       ];
   

@@ -387,7 +387,8 @@ body {
   margin: 3px 5px -5px -3px;
 }
 
-.board .lists .list-wrapper .list .cards .card .checklist-indicator {
+.board .lists .list-wrapper .list .cards .card .checklist-indicator,
+.checklist-detail .checklist-indicator {
   display: flex;
   align-items: center;
   padding: 1px 5px 0 4px;
@@ -403,7 +404,8 @@ body {
   margin: auto;
 }
 
-.board .lists .list-wrapper .list .cards .card .checklist-indicator .checklist-indicator-icon {
+.board .lists .list-wrapper .list .cards .card .checklist-indicator .checklist-indicator-icon,
+.checklist-detail .checklist-indicator-icon {
   margin-right: 2px;
 }
 
@@ -411,20 +413,23 @@ body {
   margin-right: 2px;
 }
 
-.board .lists .list-wrapper .list .cards .card .completed-checklist-indicator {
+.board .lists .list-wrapper .list .cards .card .completed-checklist-indicator,
+.checklist-detail .completed-checklist-indicator {
   background-color: #00b800;
   border-radius: 5px;
   margin-right: 2px;
   color: snow;
 }
 
-.board .lists .list-wrapper .list .cards .card .warning-checklist-indicator {
+.board .lists .list-wrapper .list .cards .card .warning-checklist-indicator,
+.checklist-detail .warning-checklist-indicator {
   background-color: yellow;
   border-radius: 5px;
   margin-right: 2px;
 }
 
-.board .lists .list-wrapper .list .cards .card .overdue-checklist-indicator {
+.board .lists .list-wrapper .list .cards .card .overdue-checklist-indicator,
+.checklist-detail .overdue-checklist-indicator {
   background-color: red;
   border-radius: 5px;
   margin-right: 2px;
@@ -546,6 +551,23 @@ body {
 
 .graph > .graph-divider:last-child{
   border-right: none;
+}
+
+.waterfall-wrapper{
+  position: absolute;
+  top: 220px;
+}
+
+.warefall-line{
+  width: 30px;
+  margin-bottom: 30px;
+  border-top: 2px solid #000303;
+  border-right: 2px solid #000303;
+  border-radius: 0 5px 0 0;
+}
+
+.task-category > .waterfall-line:last-child{
+  display: none;
 }
 
 .legend{

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -17,6 +17,10 @@ const Board = ({ match }) => {
   const {user, isAuthenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [onStart, setOnStart] = useState("")
+
+  const navbar = useMemo(() => {
+    return <Navbar user={user}/>
+  },[])
 
   useEffect(() => {
     dispatch(getBoard(match.params.id));
@@ -54,7 +58,7 @@ const Board = ({ match }) => {
 
   return !board ? (
     <Fragment>
-      <Navbar user={user}/>
+      {navbar}
       <Box className='board-loading'>
         <CircularProgress />
       </Box>
@@ -71,7 +75,7 @@ const Board = ({ match }) => {
           ')',
       }}
     >
-      <Navbar user={user}/>
+      {navbar}
       <section className='board'>
         <div className='board-top'>
           <div className='board-top-left'>

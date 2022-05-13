@@ -28,6 +28,7 @@ const GanttChart = ({ board }) => {
       type: "category",
       start: new Date(object.startdate.substring(0, 10)),
       end: new Date(object.deadline.substring(0, 10)),
+      createdAt : object.createdAt ? new Date(object.createdAt).getTime() : null
     }))
     .map((object) => ({
       ...object,
@@ -46,6 +47,7 @@ const GanttChart = ({ board }) => {
         category: task.complete === true ? "done" : "overdue",
         start: new Date(card.startdate.substring(0, 10)),
         end: new Date(card.deadline.substring(0, 10)),
+        createdAt: card.createdAt ? new Date(card.createdAt).getTime() + 1 : null
       }))
       .map((task) => ({
         ...task,
@@ -61,13 +63,18 @@ const GanttChart = ({ board }) => {
     cleanData.find((data, key) => index === key),
     ...card,
   ]);
-  const tasks = [].concat(...task);
+  const tasks = [].concat(...task).sort((a, b) => a.createdAt - b.createdAt);
+  
+  const taskLength = []
+  for(const len of task) {
+    taskLength.push(len.length)
+  }
 
   return (
         <div id="gantt-cart" className={`${classes.paper} ${classes.chartModal}`}>
       {tasks.length > 0 ? (
           <div className="Gantt" id="gant-chart-value">
-            <TestGantt tasks={tasks} style={data.style} board={board} />
+            <TestGantt tasks={tasks} style={data.style} board={board} taskLength={taskLength}/>
             <ButtonDownload title={board.title} />
           </div>
       ) : (

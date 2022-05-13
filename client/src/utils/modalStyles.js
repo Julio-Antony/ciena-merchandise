@@ -97,6 +97,7 @@ color: 'blue'
   },
   checklistFormLabel: {
     width: '100%',
+    fontWeight: '5px'
   },
   itemButtons: {
     display: 'flex',

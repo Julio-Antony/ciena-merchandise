@@ -9,6 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   GET_SOME_USERS,
+  GET_SINGLE_USER,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_FAIL,
   UPDATE_PROFILE,
@@ -100,12 +101,43 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-//Get Some User
-export const getSomeUser = (userIds) => async (dispatch) => {
+//Get Single User
+export const getSingleUser = (userIds) => async (dispatch) => {
   
   
   try {
     const res = await axios.get(`/api/users/single/${userIds}`);
+
+    dispatch({
+      type: GET_SINGLE_USER,
+      payload: res.data,
+    });
+
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+    }
+
+    dispatch({
+      type: UPDATE_PROFILE_FAIL,
+    });
+  }
+};
+
+//Get Some User
+export const getSomeUser = (ids) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ids});
+  
+  try {
+    const res = await axios.post("/api/users/multiple",body, config);
 
     dispatch({
       type: GET_SOME_USERS,

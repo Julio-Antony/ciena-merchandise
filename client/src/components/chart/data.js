@@ -6,10 +6,10 @@ const data = {
     "weekNotchesColor": "#e8e9eb",
     "taskTextColor": "#000303",
     "categories": {
-      "deadlines": "#61CFED",
+      "to do": "#61CFED",
+      "on progress": "#FF8D29",
       "overdue": "#ff6961",
-      "done": "#5CCE99",
-      "other": "#7D9CF9"
+      "done": "#5CCE99"
     }
   },
   "tasks": [

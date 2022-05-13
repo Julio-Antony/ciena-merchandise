@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 
-const TestGantt = ({ tasks, style, board }) => {
+const TestGantt = ({ tasks, style, board, taskLength }) => {
   if (tasks.length === 0) {
     return <></>;
   }
@@ -11,6 +11,7 @@ const TestGantt = ({ tasks, style, board }) => {
   let firstTime = Infinity;
   let last = null;
   let lastTime = 0;
+  let lineWidht = 0;
   for (const task of tasks) {
     if (task.start.getTime() < firstTime) {
       firstTime = task.start.getTime();
@@ -20,6 +21,7 @@ const TestGantt = ({ tasks, style, board }) => {
       lastTime = task.end.getTime();
       last = task;
     }
+    lineWidht = task.startRel * 1100 + task.durationRel * 1100;
   }
 
   const fullDuration = last.end.getTime() - first.start.getTime();
@@ -58,18 +60,30 @@ const TestGantt = ({ tasks, style, board }) => {
         </Stack>
         <div id="timeline-wrapper" className="timeline-wrapper">
           <div id="timeline" className="timeline">
-            {[...Array(weeks).keys()].map((week) => (
+            { weeks > 3 ? [...Array(weeks).keys()].map((week) => (
               <div>
                 <h3>W{week + 1}</h3>
+              </div>
+            )) : [...Array(weeks * 7).keys()].map((day) => (
+              <div>
+                <h3>D{day + 1}</h3>
               </div>
             ))}
           </div>
         </div>
         <div id="tasks" style={{ marginLeft: padX, marginTop: padY }}>
           <div className="graph">
-            {[...Array(weeks).keys()].map((week) => (
+            { weeks > 3 ? [...Array(weeks).keys()].map((week) => (
               <div
                 key={week}
+                style={{
+                  height: tasks.length * 32,
+                }}
+                className="graph-divider"
+              ></div>
+            )) : [...Array(weeks * 7).keys()].map((day) => (
+              <div
+                key={day}
                 style={{
                   height: tasks.length * 32,
                 }}
@@ -94,7 +108,7 @@ const TestGantt = ({ tasks, style, board }) => {
                     {task.name}
                   </p>
                 </div>
-                <div style={{}}>
+                <div>
                   {task.type === "task" ? (
                     <div
                       style={{
@@ -106,21 +120,35 @@ const TestGantt = ({ tasks, style, board }) => {
                       }}
                     ></div>
                   ) : (
-                    <div
-                      style={{
-                        backgroundColor: "#909BA4",
-                        border: "1px solid #000000",
-                        width: task.durationRel * 1100,
-                        marginLeft: task.startRel * 1100,
-                        borderRadius: "5px",
-                        height: 20,
-                      }}
-                    ></div>
+                    <div className="task-category">
+                      <div
+                        style={{
+                          backgroundColor: "#909BA4",
+                          border: "1px solid #000000",
+                          width: task.durationRel * 1100,
+                          marginLeft: task.startRel * 1100,
+                          borderRadius: "5px",
+                          height: 20,
+                        }}
+                      ></div>
+                    </div>
                   )}
                 </div>
               </Stack>
             </div>
           ))}
+          {/* <div className="waterfall-wrapper">
+            {taskLength.map((len, i) => (
+              <div
+                key={i}
+                className="warefall-line"
+                style={{
+                  marginLeft: lineWidht,
+                  height: len * 40,
+                }}
+              ></div>
+            ))}
+          </div> */}
         </div>
         <div id="legend" className="legend">
           <Stack direction="row">
