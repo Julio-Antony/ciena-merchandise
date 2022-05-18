@@ -14,6 +14,7 @@ import ChangePassword from "./ChangePassword";
 import useStyles from "../../utils/modalStyles";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/auth";
+import Resizer from "react-image-file-resizer";
 
 const Input = styled('input')({
     display: 'none',
@@ -28,21 +29,51 @@ const Setting = ({ user }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  function onUpload(event) {
-    event.preventDefault();
-    let file_reader1 = new FileReader();
-    let file1 = event.target.files[0];
-    file_reader1.onload = () => {
+  const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "base64"
+    );
+  });
+
+  const onUpload = async (event) => {
+    try {
+      const file = event.target.files[0];
+      const image = await resizeFile(file);
       setDisable(false)
       setAvatar(
-        file_reader1.result.substr(file_reader1.result.indexOf(",") + 1)
-      );
-    };
-
-    if (file1) {
-      file_reader1.readAsDataURL(file1);
+              image.substr(image.indexOf(",") + 1)
+            );
+      console.log(avatar);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+
+  // function onUpload(event) {
+  //   event.preventDefault();
+  //   let file_reader1 = new FileReader();
+  //   let file1 = event.target.files[0];
+  //   file_reader1.onload = () => {
+  //     setDisable(false)
+  //     setAvatar(
+  //       file_reader1.result.substr(file_reader1.result.indexOf(",") + 1)
+  //     );
+  //   };
+
+  //   if (file1) {
+  //     file_reader1.readAsDataURL(file1);
+  //   }
+  // }
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value)
