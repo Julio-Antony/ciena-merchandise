@@ -45,8 +45,8 @@ const GanttChart = ({ board }) => {
         name: task.text,
         type: "task",
         category: task.complete === true ? "done" : "overdue",
-        start: new Date(card.startdate.substring(0, 10)),
-        end: new Date(card.deadline.substring(0, 10)),
+        start: new Date(task.start ? task.start.substring(0, 10) : card.startdate.substring(0, 10)),
+        end: new Date(task.end ? task.end.substring(0, 10) : card.deadline.substring(0, 10)),
         createdAt: card.createdAt ? new Date(card.createdAt).getTime() + 1 : null
       }))
       .map((task) => ({
@@ -69,6 +69,8 @@ const GanttChart = ({ board }) => {
   for(const len of task) {
     taskLength.push(len.length)
   }
+
+  console.log(tasks)
 
   return (
         <div id="gantt-cart" className={`${classes.paper} ${classes.chartModal}`}>

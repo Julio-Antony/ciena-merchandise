@@ -52,7 +52,7 @@ const ChecklistItem = ({ boardId, item, card }) => {
           />
             </AccordionSummary>
             <AccordionDetails>
-            <ChecklistDetail item={item} card={card} boardId={boardId} />
+            <ChecklistDetail item={item} card={card} boardId={boardId}/>
             </AccordionDetails>
           </Accordion>
         </Fragment>

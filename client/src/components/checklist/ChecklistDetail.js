@@ -11,7 +11,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChecklistItem, editChecklistItem } from "../../actions/board";
-import { Avatar, Button, Stack, TextField } from "@mui/material";
+import { Avatar, Button, Grid, Stack, TextField } from "@mui/material";
 import ChecklistDialog from "./CheckilstDialog";
 import { getSomeUser } from "../../actions/auth";
 
@@ -21,19 +21,21 @@ const ChecklistDetail = ({ boardId, item, card }) => {
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(null);
-  const users = useSelector((state) => state.user.users.payload) || [];
-  const [user, setUsers] = useState(null)
+  const [avatar, setAvatar] = useState(null);
+  const users = useSelector((state) => state.user.users.payload);
 
-  if(item.member !== null){
-    const user = users.find((a) => a._id === item.member)
-    console.log(user)
-  }
   const dispatch = useDispatch();
 
   useEffect(() => {
     const ids = card.members.map((member) => member.user);
     dispatch(getSomeUser(ids));
   }, [card.members, dispatch]);
+
+  useEffect(() => {
+    if (users) {
+      setAvatar(users.find((user) => user._id === item.member));
+    }
+  }, [setAvatar, item.member, users]);
 
   const onEdit = async (e) => {
     e.preventDefault();
@@ -67,67 +69,70 @@ const ChecklistDetail = ({ boardId, item, card }) => {
 
   return (
     <div className="checklist-detail">
-      <Stack direction="row">
-        {item.end && (
-          <div
-            className={`checklist-indicator ${
-              moment(item.end).unix() - moment().unix() < 0 &&
-              card.checklist.find((cardItem) => cardItem._id === item._id)
-                .complete === false
-                ? "overdue-checklist-indicator"
-                : card.checklist.find((cardItem) => cardItem._id === item._id)
-                    .complete === true
-                ? "completed-checklist-indicator"
-                : ""
-            }`}
-          >
-            <AccessTimeIcon
-              className="checklist-indicator-icon"
-              fontSize="small"
-            />
-            {item.start && moment(item.start).format("MMM D")}
-            {item.start && " - "}
-            {moment(item.end).format("MMM D")}{" "}
+      <Grid container spacing={2}>
+        <Grid item xs={10}>
+          <Stack direction="row" spacing={2}>
+          {item.end && (
+            <div
+              className={`checklist-indicator ${
+                moment(item.end).unix() - moment().unix() < 0 &&
+                card.checklist.find((cardItem) => cardItem._id === item._id)
+                  .complete === false
+                  ? "overdue-checklist-indicator"
+                  : card.checklist.find((cardItem) => cardItem._id === item._id)
+                      .complete === true
+                  ? "completed-checklist-indicator"
+                  : ""
+              }`}
+            >
+              <AccessTimeIcon
+                className="checklist-indicator-icon"
+                fontSize="small"
+              />
+              {item.start && moment(item.start).format("MMM D")}
+              {item.start && " - "}
+              {moment(item.end).format("MMM D")}{" "}
+            </div>
+          )}
+          {item.member && avatar && (
+            <div className="checklist-indicator">
+              <Avatar
+                alt="card-member"
+                src={"data:image/png;base64," + avatar.avatar}
+              />
+            </div>
+          )}
+          {item.portion && (
+            <div className="checklist-indicator">
+              <DonutSmallIcon
+                className="checklist-indicator-icon"
+                fontSize="small"
+                style={{ color: "#333" }}
+              />
+              {item.portion}%
+            </div>
+          )}
+          </Stack>
+        </Grid>
+        <Grid item xs={2}>
+          <div className={classes.itemButtons}>
+            <IconButton
+              aria-label="edit"
+              className={classes.itemButton}
+              onClick={() => setEditing(true)}
+            >
+              <EditIcon style={{ color: "#333" }} />
+            </IconButton>
+            <IconButton
+              aria-label="delete"
+              className={classes.itemButton}
+              onClick={onDelete}
+            >
+              <HighlightOffIcon style={{ color: "red" }} />
+            </IconButton>
           </div>
-        )}
-        {item.member ? (
-          <div className="checklist-indicator">
-            <Avatar
-              alt="card-member"
-              src={
-                "data:image/png;base64," +
-                users.find((user) => user._id === item.member).avatar
-              }
-            />
-          </div>
-        ): (null)}
-        {item.portion && (
-          <div className="checklist-indicator">
-            <DonutSmallIcon
-              className="checklist-indicator-icon"
-              fontSize="small"
-              style={{ color: "#333" }}
-            />
-            {item.portion}%
-          </div>
-        )}
-        <div className={classes.itemButtons}>
-          <IconButton
-            aria-label="edit"
-            className={classes.itemButton}
-            onClick={() => setEditing(true)}
-          >
-            <EditIcon style={{ color: "#333" }} />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            className={classes.itemButton}
-            onClick={onDelete}
-          >
-            <HighlightOffIcon style={{ color: "red" }} />
-          </IconButton>
-        </div>
-      </Stack>
+        </Grid>
+      </Grid>
       {editing ? (
         <form
           onSubmit={(e) => onEdit(e)}

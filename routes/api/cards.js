@@ -66,9 +66,9 @@ router.get("/cardsInBoard/:boardId", auth, async (req, res) => {
       cardId.push(...id.cards);
     }
 
-    const card = []
+    let card = [];
     for (const cards of cardId) {
-      card.push(await Card.findById(cards))
+      card.push(await Card.findById(cards));
     }
 
     res.json(card);
@@ -101,9 +101,18 @@ router.get("/listCards/:listId", auth, async (req, res) => {
 // Get a card by id
 router.get("/:id", auth, async (req, res) => {
   try {
-    const card = await Card.findById(req.params.id);
+    const card = await Card.findById(req.params.id).lean();
     if (!card) {
       return res.status(404).json({ msg: "Card not found" });
+    }
+
+    const membersId = card.members.map((member) => member.user)
+
+    const users = await User.find({_id:{$in : membersId}}).select('name avatar').lean()
+    for(const member of card.members) {
+      const user = users.find((user) => user._id.toString() === member.user.toString())
+      member.name = user.name
+      member.avatar = user.avatar
     }
 
     res.json(card);

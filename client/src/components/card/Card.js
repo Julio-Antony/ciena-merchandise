@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Draggable } from "react-beautiful-dnd";
 import { getCard, editCard } from "../../actions/board";
-import getInitials from "../../utils/getInitials";
 import moment from "moment";
+import useStyles from "../../utils/modalStyles";
 
 import CardMUI from "@material-ui/core/Card";
 import EditIcon from "@material-ui/icons/Edit";
@@ -16,12 +16,12 @@ import {
   TextField,
   CardContent,
   Button,
-  Avatar,
-  Tooltip,
 } from "@material-ui/core";
 import CardModal from "./CardModal";
+import { Avatar, IconButton, Tooltip } from "@mui/material";
+import getInitials from "../../utils/getInitials";
 
-const Card = ({boardId, cardId, list, index, user }) => {
+const Card = ({ boardId, cardId, list, index }) => {
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -33,6 +33,7 @@ const Card = ({boardId, cardId, list, index, user }) => {
     state.board.board.cardObjects.find((object) => object._id === cardId)
   );
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(getCard(cardId));
@@ -49,7 +50,7 @@ const Card = ({boardId, cardId, list, index, user }) => {
           )
         );
     }
-  }, [card, cardId]);
+  }, [card, dispatch, cardId]);
 
   useEffect(() => {
     cardRef && cardRef.current && setHeight(cardRef.current.clientHeight);
@@ -86,17 +87,22 @@ const Card = ({boardId, cardId, list, index, user }) => {
               {...provided.dragHandleProps}
             >
               {mouseOver && !editing && (
-                <Button
-                  style={{
-                    position: "absolute",
-                    bottom: height - 40,
-                    left: "180px",
-                    zIndex: 1,
-                  }}
-                  onClick={() => setEditing(true)}
-                >
-                  <EditIcon fontSize="small" />
-                </Button>
+                <div className={classes.itemButtons}>
+                  <IconButton
+                    aria-label="edit"
+                    className={classes.itemButton}
+                    style={{
+                      position: "absolute",
+                      bottom: height - 40,
+                      left: "210px",
+                      top: "5px",
+                      zIndex: 1,
+                    }}
+                    onClick={() => setEditing(true)}
+                  >
+                    <EditIcon style={{ color: "#333" }} />
+                  </IconButton>
+                </div>
               )}
               <CardContent
                 onClick={() => {
@@ -111,7 +117,7 @@ const Card = ({boardId, cardId, list, index, user }) => {
                     style={{ backgroundColor: card.label }}
                   />
                 )}
-                <p>{card.title}</p>
+                <p style={{ marginBottom: "10px" }}>{card.title}</p>
                 <div className="card-bottom">
                   <div className="card-bottom-left">
                     {card.description && (
@@ -136,16 +142,22 @@ const Card = ({boardId, cardId, list, index, user }) => {
                       </div>
                     )}
                     {card.deadline && (
-                      <div className={`checklist-indicator ${
-                        moment(card.deadline).unix() - moment().unix() < 0 && completeItems !== card.checklist.length
-                        ? "overdue-checklist-indicator"
-                        : completeItems === card.checklist.length ? "completed-checklist-indicator" : ""
-                      }`}>
+                      <div
+                        className={`checklist-indicator ${
+                          moment(card.deadline).unix() - moment().unix() < 0 &&
+                          completeItems !== card.checklist.length
+                            ? "overdue-checklist-indicator"
+                            : completeItems === card.checklist.length
+                            ? "completed-checklist-indicator"
+                            : ""
+                        }`}
+                      >
                         <AccessTimeIcon
                           className="checklist-indicator-icon"
                           fontSize="small"
                         />
-                        {card.startdate && moment(card.startdate).format("MMM D")}
+                        {card.startdate &&
+                          moment(card.startdate).format("MMM D")}
                         {card.startdate && " - "}
                         {moment(card.deadline).format("MMM D")}{" "}
                       </div>
@@ -158,9 +170,17 @@ const Card = ({boardId, cardId, list, index, user }) => {
                     {card.members.map((member) => {
                       return (
                         <Tooltip title={member.name} key={member.user}>
+                          {member.avatar ? (
+                            <Avatar
+                            alt="card-member"
+                            src={"data:image/png;base64," + member.avatar}
+                            className="avatar"
+                          />
+                          ):(
                           <Avatar className="avatar">
                             {getInitials(member.name)}
                           </Avatar>
+                          )}
                         </Tooltip>
                       );
                     })}

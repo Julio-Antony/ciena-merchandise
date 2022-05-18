@@ -11,12 +11,14 @@ import CreateList from '../board/CreateList';
 import Members from '../board/Members';
 import Navbar from '../other/Navbar';
 import GanttButton from '../chart/GanttButton';
+import { getSomeUser } from '../../actions/auth';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
   const {user, isAuthenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [onStart, setOnStart] = useState("")
+  const users = useSelector((state) => state.user.users.payload);
 
   const navbar = useMemo(() => {
     return <Navbar user={user}/>
@@ -29,6 +31,10 @@ const Board = ({ match }) => {
   useEffect(() => {
     if (board?.title) document.title = board.title + ' | DSAJ Workplace';
   }, [board?.title]);
+
+  useEffect(() => {
+    board && dispatch(getSomeUser(board.members.map((member) => member.user)))
+  },[dispatch, board ])
 
   if (!isAuthenticated) {
     return <Redirect to='/' />;

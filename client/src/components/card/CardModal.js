@@ -111,7 +111,7 @@ const CardModal = ({ boardId, cardId, open, setOpen, card, list }) => {
                 <div className={classes.modalSection}>
                   <CardMembers card={card} />
                 </div>
-                <Checklist boardId={boardId} card={card} />
+                <Checklist boardId={boardId} card={card}/>
                 <Attachment card={card} />
                 <div className={classes.modalSection}>
                   <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />

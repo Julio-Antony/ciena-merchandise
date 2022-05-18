@@ -55,11 +55,8 @@ router.patch(
 
     try {
       const card = await Card.findById(req.params.cardId);
-      const user = await User.findById(req.body.member);
-
-      console.log(mongoose.Types.ObjectId.isValid(user.id));
-      
-      if (!card||!user) {
+    
+      if (!card) {
         return res.status(404).json({ msg: "Card/user not found" });
       }
 
@@ -69,7 +66,10 @@ router.patch(
       checklistItem.start = req.body.start || checklistItem.start
       checklistItem.end = req.body.end || checklistItem.end
       checklistItem.portion = req.body.portion || checklistItem.portion
-      checklistItem.member = user.id || checklistItem.member
+      if(req.body.member){
+        const user = await User.findById(req.body.member) 
+        checklistItem.member = user.id || checklistItem.member
+       }
       await card.save();
 
       res.json(card);

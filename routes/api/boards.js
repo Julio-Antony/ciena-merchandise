@@ -66,9 +66,18 @@ router.get('/', auth, async (req, res) => {
 // Get a board by id
 router.get('/:id', auth, async (req, res) => {
   try {
-    const board = await Board.findById(req.params.id);
+    const board = await Board.findById(req.params.id).lean();
     if (!board) {
       return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    const membersId = board.members.map((member) => member.user)
+
+    const users = await User.find({_id:{$in : membersId}}).select('name avatar').lean()
+    for(const member of board.members) {
+      const user = users.find((user) => user._id.toString() === member.user.toString())
+      member.name = user.name
+      member.avatar = user.avatar
     }
 
     res.json(board);
