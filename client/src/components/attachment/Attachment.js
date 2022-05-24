@@ -20,8 +20,8 @@ const Attachment = ({ card }) => {
       </h3>
       )}
       {card.attachment.map((doc, index) => (
-        <div>
-          <AttachmentItem key={index} doc={doc} card={card} style={classes.modalSection}/>
+        <div key={index}>
+          <AttachmentItem doc={doc} card={card} style={classes.modalSection}/>
         </div>
       ))}
     </Fragment>

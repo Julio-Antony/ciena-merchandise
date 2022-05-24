@@ -60,7 +60,9 @@ body {
   height: 100vh;
   color: white;
   text-align: center;
-  background: linear-gradient(135deg, #0079bf, #5067c5);
+  /* background: linear-gradient(135deg, #0079bf, #5067c5); */
+  background-size: auto;
+  background: url("./img/background.png");
 }
 
 .landing .top {

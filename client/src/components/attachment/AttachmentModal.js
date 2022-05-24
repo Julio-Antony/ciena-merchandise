@@ -5,13 +5,11 @@ import { Worker } from "@react-pdf-viewer/core";
 
 import useStyles from "../../utils/modalStyles";
 import DownloadButton from "./DownloadButton";
-import { Modal } from "@material-ui/core";
 
 const AttachmentModal = ({open, setOpen, attachment, extention}) => {
   const classes = useStyles();
 
   return (
-      // <Modal open={open} onClose={() => setOpenAttachment(false)}>
         <div id="attachment" className={`${classes.paper} ${classes.cardModal}`}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} justifyContent="center">
@@ -60,13 +58,7 @@ const AttachmentModal = ({open, setOpen, attachment, extention}) => {
                           <DownloadButton file={attachment.filename} fileName={attachment.name}/>
                         </Stack>
                 </div>
-              ) : //   ) : extention === "docx" ? (
-              //     <img src={Word} alt="word" />
-              //   ) : extention === "xlsx" ? (
-              //     <img src={Excel} alt="excel" />
-              //   ) : extention === "pptx" ? (
-              //     <img src={PowerPoint} alt="ppt" />
-              null}
+              ) : null}
             </Grid>
           </Grid>
         </Box>

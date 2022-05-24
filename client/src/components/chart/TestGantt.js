@@ -11,7 +11,7 @@ const TestGantt = ({ tasks, style, board, taskLength }) => {
   let firstTime = Infinity;
   let last = null;
   let lastTime = 0;
-  let lineWidht = 0;
+  // let lineWidht = 0;
   for (const task of tasks) {
     if (task.start.getTime() < firstTime) {
       firstTime = task.start.getTime();
@@ -21,16 +21,13 @@ const TestGantt = ({ tasks, style, board, taskLength }) => {
       lastTime = task.end.getTime();
       last = task;
     }
-    lineWidht = task.startRel * 1100 + task.durationRel * 1100;
+    // lineWidht = task.startRel * 1100 + task.durationRel * 1100;
   }
 
   const fullDuration = last.end.getTime() - first.start.getTime();
   const padX = 20;
   const padY = 40;
   const weeks = Math.ceil(fullDuration / (1000 * 60 * 60 * 24 * 7));
-
-  console.log(weeks);
-  console.log(tasks.length);
 
   tasks = tasks.map((task) => ({
     ...task,
@@ -39,13 +36,6 @@ const TestGantt = ({ tasks, style, board, taskLength }) => {
     weeks: task.duration / (1000 * 60 * 60 * 24 * 7),
   }));
 
-  console.log(
-    tasks
-      .filter((task) => task.type === "category")
-      .map(
-        (task) => (task.start.getTime() - first.start.getTime()) / fullDuration
-      )
-  );
   return (
     <div className="gantt-chart">
       <div className="wrapper" id="gantt">
@@ -60,12 +50,12 @@ const TestGantt = ({ tasks, style, board, taskLength }) => {
         </Stack>
         <div id="timeline-wrapper" className="timeline-wrapper">
           <div id="timeline" className="timeline">
-            { weeks > 3 ? [...Array(weeks).keys()].map((week) => (
-              <div>
+            { weeks > 3 ? [...Array(weeks).keys()].map((week, i) => (
+              <div key={i}>
                 <h3>W{week + 1}</h3>
               </div>
-            )) : [...Array(weeks * 7).keys()].map((day) => (
-              <div>
+            )) : [...Array(weeks * 7).keys()].map((day, i) => (
+              <div key={i}>
                 <h3>D{day + 1}</h3>
               </div>
             ))}
@@ -73,17 +63,17 @@ const TestGantt = ({ tasks, style, board, taskLength }) => {
         </div>
         <div id="tasks" style={{ marginLeft: padX, marginTop: padY }}>
           <div className="graph">
-            { weeks > 3 ? [...Array(weeks).keys()].map((week) => (
+            { weeks > 3 ? [...Array(weeks).keys()].map((week,i) => (
               <div
-                key={week}
+                key={i}
                 style={{
                   height: tasks.length * 32,
                 }}
                 className="graph-divider"
               ></div>
-            )) : [...Array(weeks * 7).keys()].map((day) => (
+            )) : [...Array(weeks * 7).keys()].map((day,i) => (
               <div
-                key={day}
+                key={i}
                 style={{
                   height: tasks.length * 32,
                 }}

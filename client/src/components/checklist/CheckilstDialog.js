@@ -21,6 +21,7 @@ import { editChecklistItem } from "../../actions/board";
 import PersonIcon from "@mui/icons-material/Person";
 // import AddIcon from "@mui/icons-material/Add";
 import { blue } from "@mui/material/colors";
+import CheckIcon from '@mui/icons-material/Check';
 
 const CheckilstDialog = ({ card, item, open, handleClose, type, users }) => {
   const [start, setStart] = useState(item.start);
@@ -95,6 +96,7 @@ const CheckilstDialog = ({ card, item, open, handleClose, type, users }) => {
                   )}
                 </ListItemAvatar>
                 <ListItemText primary={user.name} />
+                {user._id === member && <CheckIcon/>}
               </ListItem>
             ))}
           </List>

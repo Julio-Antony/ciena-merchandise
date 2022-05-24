@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Background from '../img/background.png'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -8,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     maxWidth: '100vw',
     padding: '20px',
-    background: 'linear-gradient(135deg, #0079bf, #5067c5)',
+    backgroundSize: "auto",
+    backgroundImage: `url(${Background})`
   },
   paper: {
     marginTop: theme.spacing(8),

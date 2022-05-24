@@ -11,9 +11,6 @@ const GanttChart = ({ board }) => {
   const dispatch = useDispatch();
   const allCards = useSelector((state) => state.board.payload);
 
-  console.log(allCards)
-  console.log(typeof(allCards))
-
   useEffect(() => {
     dispatch(getCardsOfBoard(board._id));
   }, [dispatch, board._id]);
@@ -26,8 +23,8 @@ const GanttChart = ({ board }) => {
     .map((object) => ({
       name: object.title,
       type: "category",
-      start: new Date(object.startdate.substring(0, 10)),
-      end: new Date(object.deadline.substring(0, 10)),
+      start: new Date(object.startdate),
+      end: new Date(object.deadline),
       createdAt : object.createdAt ? new Date(object.createdAt).getTime() : null
     }))
     .map((object) => ({
@@ -45,8 +42,8 @@ const GanttChart = ({ board }) => {
         name: task.text,
         type: "task",
         category: task.complete === true ? "done" : "overdue",
-        start: new Date(task.start ? task.start.substring(0, 10) : card.startdate.substring(0, 10)),
-        end: new Date(task.end ? task.end.substring(0, 10) : card.deadline.substring(0, 10)),
+        start: new Date(task.start ? task.start : card.startdate),
+        end: new Date(task.end ? task.end : card.deadline),
         createdAt: card.createdAt ? new Date(card.createdAt).getTime() + 1 : null
       }))
       .map((task) => ({
@@ -69,8 +66,6 @@ const GanttChart = ({ board }) => {
   for(const len of task) {
     taskLength.push(len.length)
   }
-
-  console.log(tasks)
 
   return (
         <div id="gantt-cart" className={`${classes.paper} ${classes.chartModal}`}>

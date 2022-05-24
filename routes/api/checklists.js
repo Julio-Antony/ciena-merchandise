@@ -151,8 +151,15 @@ router.get("/", [auth], async (req, res) => {
     const user = await User.findById(req.user.id);
 
     const filteredCard = card.filter((object) =>
-      object.members.find((object) => object.user.toString() === user._id.toString())
-    );
+      object.members.find((object) => object.user.toString() === user._id.toString()
+      
+      ));
+
+    const filteredChecklist = []
+    for(const checklist of card){
+      filteredChecklist.push(checklist.checklist.filter((object) => object.member && object.member.toString() === user._id.toString()))
+    }
+
     const complete = [];
     for (const task of filteredCard) {
       for (const done of task.checklist) {
@@ -160,8 +167,8 @@ router.get("/", [auth], async (req, res) => {
       }
     }
 
-    task_complete = complete.filter((object) => object.complete === true);
-    task_uncomplete = complete.filter((object) => object.complete === false);
+    task_complete = filteredChecklist.flat().filter((object) => object.complete === true);
+    task_uncomplete = filteredChecklist.flat().filter((object) => object.complete === false);
 
     const filteredDeadline = card
       .filter((object) => object.deadline)
@@ -205,6 +212,7 @@ router.get("/", [auth], async (req, res) => {
       done: task_complete.length,
       on_progress: task_onProgress.length,
       overdue: task_overdue.length,
+      filter : complete
     });
   } catch (err) {
     console.error(err.message);

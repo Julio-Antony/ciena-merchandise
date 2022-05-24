@@ -56,7 +56,7 @@ const Register = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component='h1' variant='h4'>
-          TrelloClone
+          WorkSpace
         </Typography>
         <Typography component='h1' variant='h5'>
           Sign up

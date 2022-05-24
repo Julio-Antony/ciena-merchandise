@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { completeChecklistItem } from "../../actions/board";
@@ -14,6 +14,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const ChecklistItem = ({ boardId, item, card }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   const onComplete = async (e) => {
     dispatch(
@@ -29,7 +34,7 @@ const ChecklistItem = ({ boardId, item, card }) => {
   return (
     <div className={classes.checklistItem}>
         <Fragment>          
-          <Accordion style={{width:"100%", padding:0}}>
+          <Accordion style={{width:"100%", padding:0}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
