@@ -1,0 +1,11 @@
+_id,company,createdAt,email,isUsefull,isValid,jabatan,name,need,prize,updatedAt,voucer_code
+62d771c493ba55efe2b1cf18,pt. duta sarana abadi jaya,2022-07-20T09:53:21.409Z,julio@dutasaja.local,true,false,engineer,julio antony,asdasda,Umbrella,2022-07-20T09:53:21.409Z,abc121
+62d7721993ba55efe2b1cf19,,,,,true,,,,,,abc122
+62d7722193ba55efe2b1cf1a,,,,,true,,,,,,abc123
+62d7722b93ba55efe2b1cf1b,,,,,true,,,,,,abc124
+62d7723393ba55efe2b1cf1c,,,,,true,,,,,,abc125
+62d7723c93ba55efe2b1cf1d,,,,,true,,,,,,abc126
+62d7724693ba55efe2b1cf1e,,,,,true,,,,,,abc127
+62d7725093ba55efe2b1cf1f,,,,,true,,,,,,abc128
+62d7725993ba55efe2b1cf20,,,,,true,,,,,,abc129
+62d7726593ba55efe2b1cf21,,,,,true,,,,,,abc130

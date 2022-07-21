@@ -34,14 +34,9 @@ app.use(express.urlencoded({
 }));
 
 // Define routes
-app.use('/api/users', require('./routes/api/users'));
+app.use('/api/participants', require('./routes/api/participants'));
+app.use('/api/doorprize', require('./routes/api/doorprize'))
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/boards', require('./routes/api/boards'));
-app.use('/api/lists', require('./routes/api/lists'));
-app.use('/api/cards', require('./routes/api/cards'));
-app.use('/api/checklists', require('./routes/api/checklists'));
-app.use('/api/attachment', require('./routes/api/attachment'));
-app.use('/api/tasks', require('./routes/api/tasks'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -53,6 +48,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 2400;
 
 app.listen(PORT, () => console.log('Server started on port ' + PORT));

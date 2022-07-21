@@ -1,48 +1,23 @@
 {
-  "name": "client",
+  "name": "doorprize",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:2400",
   "private": true,
   "dependencies": {
-    "@date-io/date-fns": "^2.13.1",
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "@mui/icons-material": "^5.5.1",
-    "@mui/lab": "^5.0.0-alpha.73",
-    "@mui/material": "^5.5.1",
-    "@react-pdf-viewer/core": "^3.1.2",
-    "@react-pdf-viewer/default-layout": "^3.1.2",
-    "@react-pdf-viewer/thumbnail": "^3.1.2",
-    "@syncfusion/ej2-react-gantt": "^19.4.56",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.21.1",
-    "chart.js": "^3.7.1",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1",
-    "moment": "^2.29.1",
-    "pdfjs-dist": "^2.6.347",
-    "react": "^17.0.2",
-    "react-base64-downloader": "^2.1.7",
-    "react-beautiful-dnd": "^13.0.0",
-    "react-calendar-timeline": "^0.27.0",
-    "react-color": "^2.19.3",
-    "react-dom": "^17.0.2",
-    "react-gantt-schedule-timeline-calendar": "^1.1.40",
-    "react-image-file-resizer": "^0.4.8",
-    "react-moment": "^0.9.7",
-    "react-pdf-viewer": "^0.1.0",
-    "react-redux": "^7.2.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.2",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0",
-    "uuid": "^8.3.2"
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0-beta1",
+    "gacha": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.33.1",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "simple-gacha": "^1.1.2",
+    "sweetalert": "^2.1.2",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,7 +26,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

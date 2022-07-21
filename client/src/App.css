@@ -1,1 +1,86 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css")
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins&display=swap');
+
+body{
+  background: rgb(215,15,49);
+  background: linear-gradient(14deg, rgba(215,15,49,1) 17%, rgba(147,1,102,1) 81%);
+  min-height: 100vh;
+}
+
+.App {
+  margin-top: 100px;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.card-doorprize {
+  height: 90vh !important;
+}
+
+.card-body {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.bg-gold {
+  background: rgb(191,149,63);
+  background: linear-gradient(45deg, rgba(191,149,63,1) 0%, rgba(252,246,186,1) 35%, rgba(179,135,40,1) 100%);
+}
+.bg-silver {
+  background: rgb(211,211,211);
+background: linear-gradient(45deg, rgba(211,211,211,1) 0%, rgba(192,192,192,1) 45%, rgba(128,128,128,1) 100%);
+}
+
+.bg-bronze {
+  background: rgb(64,40,25);
+background: linear-gradient(45deg, rgba(64,40,25,1) 0%, rgba(155,144,129,1) 45%, rgba(77,64,33,1) 100%);
+}
+
+.prize-img {
+  max-height: 300px;
+}
+
+.btn-claim {
+  background-color: #193FC3;
+  color: #fff;
+  letter-spacing: .75px;
+  border-radius: 30px;
+}
+
+.prize-logo {
+  position: absolute;
+  margin-top: 20px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
