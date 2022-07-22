@@ -30,6 +30,12 @@ const Doorprize = () => {
         if (err.response.status === 401) {
           navigate("/");
         }
+        if(err.response.status === 400){
+          swal(err.response.data,{
+            icon: "error",
+          });
+          navigate("/")
+        }
       });
   }, [navigate]);
 
@@ -57,7 +63,13 @@ const Doorprize = () => {
         navigate("/");
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        if(err.response.status === 400){
+          swal(err.response.data,{
+            icon: "error",
+          });
+          navigate("/")
+        }
         setLoading(false);
       });
   };

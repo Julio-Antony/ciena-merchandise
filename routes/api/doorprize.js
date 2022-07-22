@@ -6,7 +6,17 @@ require('dotenv').config();
 const Prizes = require('../../models/Doorprize');
 const Participants = require('../../models/Participants');
 
-router.get('/', auth, async (req, res) => {
+const rateLimit = require('express-rate-limit');
+
+const limit = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 2, // limit each IP to 2 requests per windowMs
+    handler: function (req, res, /*next*/) {
+      return res.status(400).json('Anda sudah mendapatkan hadiah, tidak boleh merefresh halaman')
+  }
+});
+
+router.get('/', auth, limit, async (req, res) => {
     try {
       const prize = await Prizes.find({});
     
@@ -38,8 +48,8 @@ router.put('/:id', auth, async (req, res) => {
     participant.jabatan = jabatan,
     participant.isUsefull = isUsefull,
     participant.need = need,
-    participant.isValid= "false",
     participant.prize= prizeName,
+    participant.isValid= false,
     participant.save()
   
     res.json({msg : "Hadiah berhasil di Claim"});

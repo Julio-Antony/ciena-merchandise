@@ -80,7 +80,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="validationServer01" className="form-label">
+                  <label htmlFor="company" className="form-label">
                     Nama Perusahaan
                   </label>
                   <input
@@ -97,7 +97,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="validationServer01" className="form-label">
+                  <label htmlFor="email" className="form-label">
                     Email
                   </label>
                   <input
@@ -105,14 +105,14 @@ const Register = () => {
                     className={`form-control ${email !== "" ? "is-valid" : ""}`}
                     id="email"
                     aria-invalid={errors.name ? "true" : "false"}
-                    {...register("company")}
+                    {...register("email")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="validationServer01" className="form-label">
+                  <label htmlFor="voucer" className="form-label">
                     Kode Voucer
                   </label>
                   <input
@@ -129,7 +129,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="validationServer01" className="form-label">
+                  <label htmlFor="jabatan" className="form-label">
                     Jabatan
                   </label>
                   <input
@@ -145,16 +145,16 @@ const Register = () => {
                     required
                   />
                 </div>
-                <label htmlFor="validationServer01" className="form-label">
+                <label htmlFor="isUsefull" className="form-label">
                   Apakah Ciena bisa dipakai untuk apa di network anda
                 </label>
-                <select className="form-select" aria-label="Default select example" onChange={(e) => setIsUsefull(e.target.value)}>
+                <select className="form-select" id="isUsefull" aria-label="Default select example" onChange={(e) => setIsUsefull(e.target.value)}>
                   {/* <option selected>Pilih</option> */}
                   <option value={true} selected={isUsefull === true}>Ya</option>
                   <option value={false} selected={isUsefull === false}>Tidak</option>
                 </select>
                 <div className="col-md-12">
-                  <label htmlFor="validationServer01" className="form-label">
+                  <label htmlFor="need" className="form-label">
                     Produk dan solusi apa saja yang dibutuhkan untuk perusahaan
                     anda
                   </label>
