@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit');
 
 const limit = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
-    max: 2, // limit each IP to 2 requests per windowMs
+    max: 1, // limit each IP to 2 requests per windowMs
     handler: function (req, res, /*next*/) {
       return res.status(400).json('Anda sudah mendapatkan hadiah, tidak boleh merefresh halaman')
   }
@@ -28,19 +28,19 @@ router.get('/', auth, limit, async (req, res) => {
   });
 
 router.put('/:id', auth, async (req, res) => {
+  
   const { name, email, company, jabatan, isUsefull, need, prizeName } = req.body;
-
   try {
     const prize = await Prizes.findById(req.params.id);
     if(!prize) {
-      return res.status(400).json({msg: "Hadiah tidak ditemukan"});
+      return res.status(400).json("Hadiah tidak ditemukan");
     }
     prize.weight = prize.weight - 1
     prize.save()
 
     const participant = await Participants.findById(req.user.id)
     if(!participant){
-      return res.status(400).json({msg: "Kode Voucer tidak ditemukan"});
+      return res.status(400).json("Kode Voucer tidak ditemukan");
     }
     participant.name = name, 
     participant.email = email, 

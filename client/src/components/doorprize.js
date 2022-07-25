@@ -3,10 +3,11 @@ import { simple } from "simple-gacha";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
-import logo from "../images/logo-ciena.svg"
+import logo from "../images/logo-ciena.svg";
 
 const Doorprize = () => {
   const [prizes, setPrizes] = useState({});
+  const [ready, setReady] = useState(false);
   const navigate = useNavigate();
   const name = localStorage.getItem("name");
   const company = localStorage.getItem("company");
@@ -16,28 +17,36 @@ const Doorprize = () => {
   const need = localStorage.getItem("need");
   const [loading, setLoading] = useState(false);
 
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    window.location.replace("/");
+  }
+
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    axios
-      .get("/api/doorprize", {
-        headers: { "x-auth-token": token },
-      })
-      .then((res) => {
-        const { pick } = simple(res.data);
-        setPrizes(pick);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          navigate("/");
-        }
-        if(err.response.status === 400){
-          swal(err.response.data,{
-            icon: "error",
-          });
-          navigate("/")
-        }
-      });
-  }, [navigate]);
+    const fetchData = async () => {
+      await axios
+        .get("/api/doorprize", {
+          headers: { "x-auth-token": token },
+        })
+        .then((res) => {
+          const { pick } = simple(res.data);
+          setPrizes(pick);
+          setReady(true);
+        });
+    };
+
+    fetchData().catch((err) => {
+      if (err.response.status === 401) {
+        navigate("/");
+      }
+      if (err.response.status === 400) {
+        swal(err.response.data, {
+          icon: "error",
+        });
+        navigate("/");
+      }
+    });
+  }, [navigate, token]);
 
   const data = JSON.stringify({
     name: name.toLowerCase(),
@@ -64,11 +73,11 @@ const Doorprize = () => {
         setLoading(false);
       })
       .catch((err) => {
-        if(err.response.status === 400){
-          swal(err.response.data,{
+        if (err.response.status === 400) {
+          swal(err.response.data, {
             icon: "error",
           });
-          navigate("/")
+          navigate("/");
         }
         setLoading(false);
       });
@@ -88,8 +97,8 @@ const Doorprize = () => {
                   : "bg-bronze"
               } `}
             >
-              <img src={logo} alt="logo" width={120} className="mr-auto"/>
-              {prizes && (
+              <img src={logo} alt="logo" width={120} className="mr-auto" />
+              {ready ? (
                 <div className="text-center">
                   <img
                     alt="prize"
@@ -97,7 +106,9 @@ const Doorprize = () => {
                     className="prize-img"
                   />
                   <p>Selamat, Anda Mendapatkan :</p>
-                  <h3 style={{marginBottom : "50px", color:"#193FC3"}}>{prizes.name}</h3>
+                  <h3 style={{ marginBottom: "50px", color: "#193FC3" }}>
+                    {prizes.name}
+                  </h3>
                   <button
                     className="btn"
                     style={{
@@ -110,6 +121,10 @@ const Doorprize = () => {
                   >
                     {loading ? "Loading..." : "CLAIM"}
                   </button>
+                </div>
+              ) : (
+                <div className="text-center" style={{marginTop: "200px"}}>
+                  <div className="spinner-border" role="status"></div>
                 </div>
               )}
             </div>
