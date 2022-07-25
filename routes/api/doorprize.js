@@ -12,7 +12,7 @@ const limit = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 1, // limit each IP to 2 requests per windowMs
     handler: function (req, res, /*next*/) {
-      return res.status(400).json('Anda sudah mendapatkan hadiah, tidak boleh merefresh halaman')
+      return res.status(400).json('Anda sudah mendapatkan hadiah')
   }
 });
 
