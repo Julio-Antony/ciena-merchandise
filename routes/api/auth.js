@@ -27,7 +27,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, company, jabatan, isUsefull, need } = req.body;
+    const { name, email, phone, company, jabatan, isUsefull, need } = req.body;
 
     try {
       
@@ -42,7 +42,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token, name, email, company, jabatan, isUsefull, need});
+          res.json({ token, name, email, phone, company, jabatan, isUsefull, need});
         }
       );
     } catch (err) {

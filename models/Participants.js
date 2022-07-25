@@ -8,6 +8,9 @@ const ParticipantsSchema = new Schema({
   email: {
     type: String
   },
+  phone: {
+    type: String,
+  },
   company: {
     type: String,
   },

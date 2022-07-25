@@ -36,6 +36,7 @@ router.post('/', auth, async (req, res) => {
     const participant = new Participants({
       name,
       email,
+      phone,
       company,
       jabatan,
       isUsefull,

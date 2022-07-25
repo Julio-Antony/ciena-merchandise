@@ -12,6 +12,7 @@ const Doorprize = () => {
   const name = localStorage.getItem("name");
   const company = localStorage.getItem("company");
   const email = localStorage.getItem("email");
+  const phone = localStorage.getItem("phone");
   const jabatan = localStorage.getItem("jabatan");
   const isUsefull = localStorage.getItem("isUsefull");
   const need = localStorage.getItem("need");
@@ -52,6 +53,7 @@ const Doorprize = () => {
     name: name.toLowerCase(),
     company: company.toLowerCase(),
     email: email.toLowerCase(),
+    phone: phone,
     jabatan: jabatan.toLowerCase(),
     isUsefull: isUsefull.toLowerCase(),
     need: need.toLowerCase(),

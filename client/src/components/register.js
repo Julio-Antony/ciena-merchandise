@@ -9,6 +9,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [jabatan, setJabatan] = useState("");
   const [isUsefull, setIsUsefull] = useState(false);
   const [need, setNeed] = useState("");
@@ -36,6 +37,7 @@ const Register = () => {
         localStorage.setItem("name", name);
         localStorage.setItem("company", company);
         localStorage.setItem("email", email);
+        localStorage.setItem("phone", phone);
         localStorage.setItem("jabatan", jabatan);
         localStorage.setItem("isUsefull", isUsefull);
         localStorage.setItem("need", need);
@@ -113,6 +115,21 @@ const Register = () => {
                     {...register("email")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label htmlFor="email" className="form-label">
+                    Nomor Telepon
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${phone !== "" ? "is-valid" : ""}`}
+                    id="phone"
+                    aria-invalid={errors.name ? "true" : "false"}
+                    {...register("phone")}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </div>
