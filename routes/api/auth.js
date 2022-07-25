@@ -7,6 +7,16 @@ require('dotenv').config();
 
 const Participants = require('../../models/Participants');
 
+const rateLimit = require('express-rate-limit');
+
+const limit = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 1, // limit each IP to 2 requests per windowMs
+    handler: function (req, res, /*next*/) {
+      return res.status(400).json('Anda sudah mendapatkan hadiah')
+  }
+});
+
 // Get authorized user
 router.get('/', auth, async (req, res) => {
   try {
@@ -20,7 +30,7 @@ router.get('/', auth, async (req, res) => {
 
 // Authenticate user & get token
 router.post(
-  '/',
+  '/', limit,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
