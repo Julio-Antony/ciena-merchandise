@@ -22,7 +22,6 @@ const ParticipantsSchema = new Schema({
   },
   need: {
     type: String,
-    required: true
   },
   prize: {
     type: String,
