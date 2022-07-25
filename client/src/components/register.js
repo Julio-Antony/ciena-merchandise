@@ -180,6 +180,7 @@ const Register = () => {
                     {...register("need")}
                     value={need}
                     onChange={(e) => setNeed(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="col-12 text-center">
