@@ -29,7 +29,7 @@ router.get('/', auth, limit, async (req, res) => {
 
 router.post('/', auth, async (req, res) => {
   
-  const { name, email, company, jabatan, isUsefull, need, prizeName } = req.body;
+  const { name, email, phone, company, jabatan, isUsefull, need, prizeName } = req.body;
   try {
 
     // Add new participant
