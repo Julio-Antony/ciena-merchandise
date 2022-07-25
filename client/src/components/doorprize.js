@@ -61,7 +61,7 @@ const Doorprize = () => {
   const onClaim = () => {
     const token = localStorage.getItem("access_token");
     axios
-      .put(`/api/doorprize/${prizes._id}`, data, {
+      .post('/api/doorprize/', data, {
         headers: { "Content-Type": "application/json", "x-auth-token": token },
       })
       .then((res) => {

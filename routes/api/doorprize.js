@@ -27,29 +27,23 @@ router.get('/', auth, limit, async (req, res) => {
     }
   });
 
-router.put('/:id', auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
   
   const { name, email, company, jabatan, isUsefull, need, prizeName } = req.body;
   try {
-    const prize = await Prizes.findById(req.params.id);
-    if(!prize) {
-      return res.status(400).json("Hadiah tidak ditemukan");
-    }
-    prize.weight = prize.weight - 1
-    prize.save()
 
-    const participant = await Participants.findById(req.user.id)
-    if(!participant){
-      return res.status(400).json("Kode Voucer tidak ditemukan");
-    }
-    participant.name = name, 
-    participant.email = email, 
-    participant.company = company,
-    participant.jabatan = jabatan,
-    participant.isUsefull = isUsefull,
-    participant.need = need,
-    participant.prize= prizeName,
-    participant.isValid= false,
+    // Add new participant
+    const participant = new Participants({
+      name,
+      email,
+      company,
+      jabatan,
+      isUsefull,
+      need,
+      prize : prizeName
+    });
+
+
     participant.save()
   
     res.json({msg : "Hadiah berhasil di Claim"});

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import logo from "../images/logo-ciena.svg"
+import logo from "../images/logo-ciena.svg";
 import swal from "sweetalert";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
-  const [voucer, setVoucer] = useState("");
   const [jabatan, setJabatan] = useState("");
   const [isUsefull, setIsUsefull] = useState(false);
   const [need, setNeed] = useState("");
@@ -23,7 +22,6 @@ const Register = () => {
 
   const registData = JSON.stringify({
     name: name,
-    voucer_code: voucer,
   });
 
   const onSubmit = () => {
@@ -46,8 +44,8 @@ const Register = () => {
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status === 400){
-          swal(err.response.data,{
+        if (err.response.status === 400) {
+          swal(err.response.data, {
             icon: "error",
           });
         }
@@ -58,10 +56,17 @@ const Register = () => {
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <div className="card" style={{marginBottom: "100px"}}>
-            <img src={logo} alt="logo" width={180} className="mx-auto"/>
-            <h1 className="text-center"><strong>Form Partisipan</strong></h1>
-            <p className="text-center" style={{marginBottom: "40px", marginTop:"-8px"}}>Isi Form ini dan dapatkan hadiahnya !!!</p>
+          <div className="card" style={{ marginBottom: "100px" }}>
+            <img src={logo} alt="logo" width={180} className="mx-auto" />
+            <h1 className="text-center">
+              <strong>Form Partisipan</strong>
+            </h1>
+            <p
+              className="text-center"
+              style={{ marginBottom: "40px", marginTop: "-8px" }}
+            >
+              Isi Form ini dan dapatkan hadiahnya !!!
+            </p>
             <div className="card-body">
               <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-md-12">
@@ -112,23 +117,6 @@ const Register = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="voucer" className="form-label">
-                    Kode Voucer
-                  </label>
-                  <input
-                    type="password"
-                    className={`form-control ${
-                      voucer !== "" ? "is-valid" : ""
-                    }`}
-                    id="voucer"
-                    aria-invalid={errors.name ? "true" : "false"}
-                    {...register("voucer")}
-                    value={voucer}
-                    onChange={(e) => setVoucer(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="col-md-12">
                   <label htmlFor="jabatan" className="form-label">
                     Jabatan
                   </label>
@@ -145,14 +133,24 @@ const Register = () => {
                     required
                   />
                 </div>
-                <label htmlFor="isUsefull" className="form-label">
-                  Apakah Ciena bisa dipakai untuk apa di network anda
-                </label>
-                <select className="form-select" id="isUsefull" aria-label="Default select example" onChange={(e) => setIsUsefull(e.target.value)}>
-                  {/* <option selected>Pilih</option> */}
-                  <option value={true} selected={isUsefull === true}>Ya</option>
-                  <option value={false} selected={isUsefull === false}>Tidak</option>
-                </select>
+                <div className="col-md-12">
+                  <label htmlFor="isUsefull" className="form-label">
+                    Apakah Ciena bisa dipakai untuk apa di network anda
+                  </label>
+                  <select
+                    className="form-select"
+                    id="isUsefull"
+                    aria-label="Default select example"
+                    onChange={(e) => setIsUsefull(e.target.value)}
+                  >
+                    <option value={true} selected={isUsefull === true}>
+                      Ya
+                    </option>
+                    <option value={false} selected={isUsefull === false}>
+                      Tidak
+                    </option>
+                  </select>
+                </div>
                 <div className="col-md-12">
                   <label htmlFor="need" className="form-label">
                     Produk dan solusi apa saja yang dibutuhkan untuk perusahaan

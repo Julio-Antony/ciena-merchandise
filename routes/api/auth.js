@@ -27,32 +27,22 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, voucer_code, email, company, jabatan, isUsefull, need } = req.body;
+    const { name, email, company, jabatan, isUsefull, need } = req.body;
 
     try {
-      // See if voucer code exists
-      let participant = await Participants.findOne({ voucer_code });
-      if (!participant) {
-        return res.status(400).json('Kode voucer invalid');
-      }
-
-      // Check for voucer code is valid
-      if (participant.isValid === false) {
-        return res.status(400).json('Kode voucher sudah di claim');
-      }
-
+      
       // Return jsonwebtoken
       jwt.sign(
         {
          user: {
-            id: participant._id,
+            name: "Judgment of Euthymia",
           },
         },
         process.env.JWT_SECRET,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token, name, voucer_code, email, company, jabatan, isUsefull, need});
+          res.json({ token, name, email, company, jabatan, isUsefull, need});
         }
       );
     } catch (err) {

@@ -14,9 +14,6 @@ const ParticipantsSchema = new Schema({
   jabatan: {
     type: String
   },
-  voucer_code: {
-    type: String,
-  },
   isUsefull: {
     type: Boolean
   },
@@ -27,9 +24,6 @@ const ParticipantsSchema = new Schema({
   prize: {
     type: String,
     required: true
-  },
-  isValid: {
-    type: Boolean
   }
 },
 {
