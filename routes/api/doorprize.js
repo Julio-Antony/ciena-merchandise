@@ -19,6 +19,10 @@ const limit = rateLimit({
 router.get('/', auth, limit, async (req, res) => {
     try {
       const prize = await Prizes.find({});
+
+      if (prize.length < 1) {
+        return res.status(400).json('Hadiah sudah habis')
+      }
     
       res.json(prize);
     } catch (err) {
@@ -31,6 +35,17 @@ router.post('/', auth, async (req, res) => {
   
   const { name, email, phone, company, jabatan, isUsefull, need, prizeName } = req.body;
   try {
+    const prize = await Prizes.findOne({"name":prizeName});
+    if(!prize){
+      return res.status(400).json('Hadiah tidak ditemukan')
+    }
+
+    if(prize.weight === 1){
+      prize.deleteOne()
+    } else {
+      prize.weight = prize.weight - 1
+      prize.save()
+    }
 
     // Add new participant
     const participant = new Participants({
